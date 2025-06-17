@@ -2,7 +2,7 @@
 
 class Conexao{
     private $host = 'localhost';
-    private $db_name = 'ecommerce';
+    private $db_name = 'doctorpartsdb';
     private $username = 'root';
     private $password = '';
     private $conn;

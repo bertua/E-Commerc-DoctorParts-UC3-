@@ -1,9 +1,11 @@
-// Scipt do index
+// Script do index
     let index = 0;
     const slides = document.getElementById('slides');
     const totalSlides = slides.children.length;
     const slidesVisiveis = 4;
-    const slideLargura =     function atualizarSlide() {
+    const slideLargura = 305;//slides.querySelector('.slide').offsetWidth + 5; // 5 é a margem direita    
+
+    function atualizarSlide() {
         const deslocamento = index * slideLargura;
         slides.style.transform = `translateX(-${deslocamento}px)`;
     }   
@@ -26,27 +28,18 @@
         });
     });
 
+    function abrirPopup() {
+        document.getElementById("popupCadastro").style.display = "block";
+    }
 
-// Script para o cadastro (Popup)
+    function fecharPopup() {
+        document.getElementById("popupCadastro").style.display = "none";
+    }
 
-
-document.addEventListener("DOMContentLoaded", function () {
-    const botaoCadastro = document.getElementById("btnCadastrar");
-    const popup = document.getElementById("popupCadastro");
-    const fechar = document.getElementById("fecharPopup");
-
-    botaoCadastro.addEventListener("click", function (e) {
-        e.preventDefault();
-        popup.style.display = "flex";
-    });
-
-    fechar.addEventListener("click", function () {
-        popup.style.display = "none";
-    });
-
-    window.addEventListener("click", function (e) {
-        if (e.target === popup) {
-            popup.style.display = "none";
+    // Fecha o modal ao clicar fora dele
+    window.onclick = function (event) {
+        const modal = document.getElementById("popupCadastro");
+        if (event.target === modal) {
+            modal.style.display = "none";
         }
-    });
-});
+    }
