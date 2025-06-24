@@ -1,52 +1,35 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="../css/cadastroStyle.css">
-    <script src="../js/popUpCadastro.js" defer></script>
-    <link rel="icon" href="path/para/seu/favicon.ico" type="image/x-icon">
-
+    
 </head>
 <body>
+    <!-- Registration modal PopUp-->
     <div id="popupCadastro" class="modal">
-        <div class="modal-content">
-            <span class="close" id="fecharPopup">&times;</span>
+        <div class="modal-conteudo">
+            <!-- Close button -->
+            <span class="fechar" onclick="fecharPopup()">&times;</span>
             <h2>Cadastro</h2>
-            <p>Formulário de cadastro vai aqui (ou qualquer mensagem desejada).</p>
+            <!-- Registration form -->
+            <form action="../php/inserirCadastro.php" method="POST">
+                <div class="input-modal">
+                    <input type="text" id="nome" name="nome" required placeholder="Insira seu nome completo">
+                </div>
+                <div class="input-modal">
+                    <input type="email" id="email" name="email" required placeholder="Insira seu e-mail">
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="contato" name="contato" required placeholder="(XX) XXXXX-XXXX">
+                </div>
+                <div class="input-modal">
+                    <input type="password" id="senha" name="senha" required placeholder="Insira sua senha">
+                </div>
+                <button type="submit" >Register</button>
+            </form>
         </div>
     </div>
-    <header>
-        <div class="cabecalho">
-            <img src="images/logo.png" alt="">
-        </div>
-    </header>
-    <section>
-        <div class="container-cadastro">
-            <h1>Cadastro</h1>
-            <div class="cardCadastro">
-                <form action="#" method="post">
-                    <div class="input-group">
-                        <label for="nome">Nome:</label>
-                        <input type="text" id="nome" name="nome" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="telefone">Contato:</label>
-                        <input type="tel" id="contato" name="contato" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="senha">Senha:</label>
-                        <input type="password" id="senha" name="senha" required>
-                    </div>
-                    <a href="#" id="btnCadastrar">Cadastrar</a>
-                </form>
-            </div>
-        </div>
-    </section>
 </body>
 </html>

@@ -1,33 +1,29 @@
-
-<?php
-
-    $mostrarPopup = true;
-?>
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Modal com HTML/CSS</title>
-    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
+    <?php
+    include 'cadastro.class.php';
+   
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $cadastro = new Cadastro();
+        $cadastro->setNome($_POST['nome']);
+        $cadastro->setEmail($_POST['email']);
+        $cadastro->setContato($_POST['contato']);
+        $cadastro->setSenha($_POST['senha']);
 
-<h1>Página com Modal</h1>
+        if ($cadastro->cadastrarUsuario()) {
+            echo "<p>Usuário cadastrado com sucesso!</p>";
+        } else {
+            echo "<p>Erro ao cadastrar usuário.</p>";
+        }
+    }
+    ?>
 
-<div id="meuModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="document.getElementById('meuModal').style.display='none'">&times;</span>
-        <p>Este é um modal gerado com PHP, HTML e JS!</p>
-    </div>
-</div>
-
-<?php if ($mostrarPopup): ?>
-<script>
-    window.onload = function() {
-        document.getElementById('meuModal').style.display = 'block';
-    };
-</script>
-<?php endif; ?>
-
+    <h1>Cadastro efetuado com sucesso!</h1>
 </body>
 </html>
