@@ -7,6 +7,7 @@
         private $email;
         private $contato;
         private $senha;
+        private $data_criacao;
 
         public function getIdUsuario() {
             return $this->id_usuario;
@@ -43,23 +44,60 @@
             $this->senha = $senha;
         }
 
+        public function getDataCriacao() {
+            return $this->data_criacao;
+        }
+
+        public function setDataCriacao($data_criacao) {
+            $this->data_criacao = $data_criacao;
+        }
+
         public function cadastrarUsuario() {
             $conexao = new Conexao();
             $db = $conexao->getConnection();
             
-            $sql = 'INSERT INTO clientes (nome, email, contato, senha) values (:nome, :email, :contato, :senha)';
+            $sql = 'INSERT INTO usuarios (nome, email, contato, senha) values (:nome, :email, :contato, :senha)';
             try{
+
+                // Gerar o hash da senha antes de armazenar
+                $senhaHash = password_hash($this->senha, PASSWORD_DEFAULT);
+
                 $stmt = $db->prepare($sql);
-                $stmt->bindParam(':nome',$this->nome);
-                $stmt->bindParam(':telefone',$this->contato);
-                $stmt->bindParam(':email',$this->email);
-                $stmt->bindParam(':senha',$this->senha);
+                $stmt->bindParam(':nome', $this->nome);
+                $stmt->bindParam(':contato', $this->contato);
+                $stmt->bindParam(':email', $this->email);
+                $stmt->bindParam(':senha', $senhaHash);
                 $stmt->execute();
                 return true;
             } catch(PDOException $e){
                 echo 'Erro ao inserir usuário: '. $e->getMessage();
                 return false;
             }   
+        }
+
+        public function listarUsuarios($email, $senha) {
+            $conexao = new Conexao();
+            $db = $conexao->getConnection();
+            
+            $sql = 'SELECT * FROM usuarios WHERE email=:email LIMIT 1';
+            try {
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+                $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                // Verifica se o usuário foi encontrado e a senha confere
+                if ($usuario && password_verify($senha, $usuario['senha'])) {
+                    // Remova o hash antes de retornar os dados, por segurança
+                    unset($usuario['senha']);
+                    return $usuario;
+                } else {
+                    // Retorna vazio se senha não confere ou usuário não existe
+                    return null;
+                }
+            } catch (PDOException $e) {
+                echo 'Erro ao listar usuários: ' . $e->getMessage();
+                return null;
             }
+        }
     }
-?>

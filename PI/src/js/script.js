@@ -35,67 +35,75 @@ document.querySelectorAll('.botao-carrinho').forEach(botao => {
 });
 
 // Open registration modal
-function abrirPopup() {
+function abrirPopupCadastro() {
     document.getElementById("popupCadastro").style.display = "flex";
 }
 
 // Close registration modal
-function fecharPopup() {
+function fecharPopupCadastro() {
     document.getElementById("popupCadastro").style.display = "none";
 }
 
-// const formCadastro = document.querySelector('#popupCadastro form');
-// formCadastro.addEventListener('submit', function (e) {
-//     e.preventDefault(); // Impede envio para o PHP por enquanto
+// Open login modal
+function abrirPopupLogin() {
+    document.getElementById("popupLogin").style.display = "flex";
+}
 
-//     const mensagem = document.getElementById('mensagemSucesso');
-//     mensagem.style.display = 'block';
+// Close login modal
+function fecharPopupLogin() {
+    document.getElementById("popupLogin").style.display = "none";
+}
 
-//     // Esconde a mensagem após 5 segundos
-//     setTimeout(() => {
-//         mensagem.style.display = 'none';
-//     }, 2000);
-// });
 const form = document.getElementById('formCadastro');
-const mensagem = document.getElementById('mensagemSucesso');
+const mensagem = document.getElementById('mensagemRetorno');
 
 // Envia o formulário com Fetch
 form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const dados = {
-        nome: form.nome.value,
-        email: form.email.value,
-        contato: form.contato.value,
-        senha: form.senha.value
-    };
+    const formData = new URLSearchParams();
+    formData.append('nome', form.nome.value);
+    formData.append('email', form.email.value);
+    formData.append('contato', form.contato.value);
+    formData.append('senha', form.senha.value);
 
-    fetch('../php/inserirCadastro.php', {
+    fetch(form.action, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: JSON.stringify(dados)
+        body: formData
     })
     .then(response => response.json())
     .then(res => {
+        console.log(res);
         if (res.status === 'ok') {
-            mensagem.style.display = 'block';
-            form.reset(); // limpa o formulário
-
-            setTimeout(() => {
-                mensagem.style.display = 'none';
-            }, 2000);
+            exibirMensagem(res.message || 'Cadastro realizado com sucesso!');
+            form.reset(); // Limpa o formulário após o envio
         } else {
-            alert(res.mensagem || 'Erro ao cadastrar');
+            exibirMensagem(res.message || 'Erro ao cadastrar', 'erro');
         }
     })
     .catch(() => {
-        alert('Erro na conexão com o servidor.');
+        exibirMensagem('Erro ao enviar os dados.', 'erro');
     });
 });
+
 // Impede que clique dentro da mensagem a feche
 mensagem.addEventListener('click', function (e) {
     mensagem.style.display = 'none'; // permite fechar clicando na própria mensagem
 });
 
+function exibirMensagem(texto, tipo = 'success') {
+    mensagem.innerHTML = texto;
+    mensagem.style.display = 'block';
+    mensagem.className = tipo === 'success' ? 'mensagem-sucesso' : 'mensagem-erro';
+    setTimeout(() => {
+        mensagem.style.display = 'none';
+    }, 2000);
+}
+
+const contatoInput = document.getElementById('contato');
+const contatoMask = IMask(contatoInput, {
+    mask: '(00) 00000-0000'
+});
