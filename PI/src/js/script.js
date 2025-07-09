@@ -44,30 +44,20 @@ function fecharPopupCadastro() {
     document.getElementById("popupCadastro").style.display = "none";
 }
 
-// Open login modal
-function abrirPopupLogin() {
-    document.getElementById("popupLogin").style.display = "flex";
-}
-
-// Close login modal
-function fecharPopupLogin() {
-    document.getElementById("popupLogin").style.display = "none";
-}
-
-const form = document.getElementById('formCadastro');
+const formCadastro = document.getElementById('formCadastro');
 const mensagem = document.getElementById('mensagemRetorno');
 
 // Envia o formulário com Fetch
-form.addEventListener('submit', function (e) {
+formCadastro.addEventListener('submit', function (e) {
     e.preventDefault();
 
     const formData = new URLSearchParams();
-    formData.append('nome', form.nome.value);
-    formData.append('email', form.email.value);
-    formData.append('contato', form.contato.value);
-    formData.append('senha', form.senha.value);
+    formData.append('nome', formCadastro.nome.value);
+    formData.append('email', formCadastro.email.value);
+    formData.append('contato', formCadastro.contato.value);
+    formData.append('senha', formCadastro.senha.value);
 
-    fetch(form.action, {
+    fetch(formCadastro.action, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -79,7 +69,7 @@ form.addEventListener('submit', function (e) {
         console.log(res);
         if (res.status === 'ok') {
             exibirMensagem(res.message || 'Cadastro realizado com sucesso!');
-            form.reset(); // Limpa o formulário após o envio
+            formCadastro.reset(); // Limpa o formulário após o envio
         } else {
             exibirMensagem(res.message || 'Erro ao cadastrar', 'erro');
         }
@@ -92,6 +82,48 @@ form.addEventListener('submit', function (e) {
 // Impede que clique dentro da mensagem a feche
 mensagem.addEventListener('click', function (e) {
     mensagem.style.display = 'none'; // permite fechar clicando na própria mensagem
+});
+
+// Open login modal
+function abrirPopupLogin() {
+    document.getElementById("popupLogin").style.display = "flex";
+}
+
+// Close login modal
+function fecharPopupLogin() {
+    document.getElementById("popupLogin").style.display = "none";
+}
+
+const formLogin = document.getElementById('formLogin');
+
+formLogin.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new URLSearchParams();
+    formData.append('emailLogin', formLogin.emailLogin.value);
+    formData.append('senhaLogin', formLogin.senhaLogin.value);
+
+    fetch(formLogin.action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(res => {
+        if (res.status === 'ok') {
+            formLogin.reset();
+            setTimeout(() => {
+                location.reload(); // recarrega para atualizar nome do usuário
+            }, 1);
+        } else {
+            exibirMensagem(res.message || 'Erro no login.', 'erro');
+        }
+    })
+    .catch(() => {
+        exibirMensagem('Erro ao enviar os dados.', 'erro');
+    });
 });
 
 function exibirMensagem(texto, tipo = 'success') {
