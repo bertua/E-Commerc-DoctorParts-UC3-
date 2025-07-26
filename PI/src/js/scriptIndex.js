@@ -1,31 +1,32 @@
-// Script for product carousel
-let index = 0;
-const slides = document.getElementById('slides');
-const totalSlides = slides.children.length;
-const slidesVisiveis = 4; // Number of visible items
-const slideLargura = 305; // Slide width + margin
+document.querySelectorAll('.carrossel').forEach(carrossel => {
+const slides = carrossel.querySelector('.slides');
+const botaoDireita = carrossel.querySelector('.direita');
+const botaoEsquerda = carrossel.querySelector('.esquerda');
 
-// Update carousel position
-function atualizarSlide() {
-    const deslocamento = index * slideLargura;
-    slides.style.transform = `translateX(-${deslocamento}px)`;
-}
+const slidesVisiveis = 4;
+let indiceAtual = 0;
 
-// Move carousel forward
-function avancar() {
-    if (index < totalSlides - slidesVisiveis) {
-        index++;
-        atualizarSlide();
+const atualizarTransform = () => {
+    const larguraSlide = carrossel.querySelector('.slide').offsetWidth + 10; // 10px margem
+    const deslocamento = -indiceAtual * larguraSlide;
+    slides.style.transform = `translateX(${deslocamento}px)`;
+};
+
+botaoDireita.addEventListener('click', () => {
+    const totalSlides = slides.children.length;
+    if (indiceAtual + slidesVisiveis < totalSlides) {
+    indiceAtual++;
+    atualizarTransform();
     }
-}
+});
 
-// Move carousel backward
-function voltar() {
-    if (index > 0) {
-        index--;
-        atualizarSlide();
+botaoEsquerda.addEventListener('click', () => {
+    if (indiceAtual > 0) {
+    indiceAtual--;
+    atualizarTransform();
     }
-}
+});
+});
 
 // Alert on "Add to Cart" button click
 document.querySelectorAll('.botao-carrinho').forEach(botao => {

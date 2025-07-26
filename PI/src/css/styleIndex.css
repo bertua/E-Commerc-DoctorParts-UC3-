@@ -76,18 +76,30 @@ header {
   margin-left: 10px;
 }
 
+.carrosseis-container {
+  display: flex;
+  flex-direction: column; /* empilha os carrosséis */
+  align-items: center;    /* centraliza */
+  gap: 40px;              /* espaço entre os carrosséis */
+  width: 100%;
+}
+
 /* Product carousel container */
 .carrossel {
   position: relative;
   width: 1300px;
+  width: 100%;
+  max-width: 1300px;
   overflow: hidden;
   margin: 0 auto;
+  margin: 20px auto; /* espaço entre carrosséis */
+  /* pode deixar display flex column para layout interno */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin-top: 20px;
+  min-height: auto;
 }
-
 /* Slides container */
 .slides {
   display: flex;

@@ -64,58 +64,216 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
         </nav>
     </header>
 
-    <!-- Product carousel section -->
-    <div class="carrossel">
-        <div class="carrossel-wrapper" style="display: flex; align-items: center;">
-            <!-- Left navigation button -->
-            <div class="botoes">
-                <button class="botao-carrosel esquerda" onclick="voltar()">←</button>
-            </div>
+     
+    <div class="carrosseis-container">
+        
+        <!-- Product carousel section -->
+        <div class="carrossel">
+            <h1>Diversos</h1>
+            <div class="carrossel-wrapper" style="display: flex; align-items: center;">
+                <!-- Left navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel esquerda" onclick="voltar()">←</button>
+                </div>
 
-            <!-- Carousel slides container -->
-            <div style="overflow-x: hidden;">
-                <div class="slides" id="slides">
-                    <!-- Each product slide -->
-                    <div class="slide">
-                        <img src="../../assets/images/bauletoBraz5Adventure56LPreto.png" alt="Slide 1">
-                        <div class="descricao">Produto 1 - R$ 29,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
+                <!-- Carousel slides container -->
+                <div style="overflow-x: hidden;">
+                    <div class="slides" id="slides">
+                        <!-- Each product slide -->
+                        <div class="slide">
+                            <img src="../../assets/images/bauletoBraz5Adventure56LPreto.png" alt="Slide 1">
+                            <div class="descricao">Produto 1 - R$ 29,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="../../assets/images/capaceteHJC.jpg" alt="Slide 2">
+                            <div class="descricao">Produto 2 - R$ 39,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="../../assets/images/escapeGSX-R1000.jpg" alt="Slide 3">
+                            <div class="descricao">Produto 3 - R$ 49,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="../../assets/images/espelhoRisomaTriangular.png" alt="Slide 4">
+                            <div class="descricao">Produto 4 - R$ 59,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="../../assets/images/guidaoRenthal.jpg" alt="Slide 5">
+                            <div class="descricao">Produto 5 - R$ 69,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="../../assets/images/jaquetaAlpineStar.png" alt="Slide 6">
+                            <div class="descricao">Produto 6 - R$ 79,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
                     </div>
-                    <div class="slide">
-                        <img src="../../assets/images/capaceteHJC.jpg" alt="Slide 2">
-                        <div class="descricao">Produto 2 - R$ 39,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
+                </div>
+
+                <!-- Right navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel direita" onclick="avancar()">→</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="carrossel">
+            <h1>Óleos e lubrificantes</h1>
+            <div class="carrossel-wrapper" style="display: flex; align-items: center;">
+                <!-- Left navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel esquerda" onclick="voltar()">←</button>
+                </div>
+
+                <!-- Carousel slides container -->
+                <div style="overflow-x: hidden;">
+                    <div class="slides" id="slides">
+                        <!-- Each product slide -->
+                        <div class="slide">
+                            <img src=" " alt="Slide 1">
+                            <div class="descricao">Produto 1 - R$ 29,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 2">
+                            <div class="descricao">Produto 2 - R$ 39,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 3">
+                            <div class="descricao">Produto 3 - R$ 49,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 4">
+                            <div class="descricao">Produto 4 - R$ 59,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 5">
+                            <div class="descricao">Produto 5 - R$ 69,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 6">
+                            <div class="descricao">Produto 6 - R$ 79,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
                     </div>
-                    <div class="slide">
-                        <img src="../../assets/images/escapeGSX-R1000.jpg" alt="Slide 3">
-                        <div class="descricao">Produto 3 - R$ 49,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
-                    </div>
-                    <div class="slide">
-                        <img src="../../assets/images/espelhoRisomaTriangular.png" alt="Slide 4">
-                        <div class="descricao">Produto 4 - R$ 59,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
-                    </div>
-                    <div class="slide">
-                        <img src="../../assets/images/guidaoRenthal.jpg" alt="Slide 5">
-                        <div class="descricao">Produto 5 - R$ 69,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
-                    </div>
-                    <div class="slide">
-                        <img src="../../assets/images/jaquetaAlpineStar.png" alt="Slide 6">
-                        <div class="descricao">Produto 6 - R$ 79,90</div>
-                        <button class="botao-carrinho">Adicionar ao carrinho</button>
-                    </div>
+                </div>
+
+                <!-- Right navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel direita" onclick="avancar()">→</button>
                 </div>
             </div>
 
-            <!-- Right navigation button -->
-            <div class="botoes">
-                <button class="botao-carrosel direita" onclick="avancar()">→</button>
+            <div class="carrossel">
+            <h1>Pneus</h1>
+            <div class="carrossel-wrapper" style="display: flex; align-items: center;">
+                <!-- Left navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel esquerda" onclick="voltar()">←</button>
+                </div>
+
+                <!-- Carousel slides container -->
+                <div style="overflow-x: hidden;">
+                    <div class="slides" id="slides">
+                        <!-- Each product slide -->
+                        <div class="slide">
+                            <img src=" " alt="Slide 1">
+                            <div class="descricao">Produto 1 - R$ 29,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 2">
+                            <div class="descricao">Produto 2 - R$ 39,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 3">
+                            <div class="descricao">Produto 3 - R$ 49,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src=" " alt="Slide 4">
+                            <div class="descricao">Produto 4 - R$ 59,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 5">
+                            <div class="descricao">Produto 5 - R$ 69,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 6">
+                            <div class="descricao">Produto 6 - R$ 79,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel direita" onclick="avancar()">→</button>
+                </div>
+            </div>
+
+                        <div class="carrossel">
+            <h1>Roupas</h1>
+            <div class="carrossel-wrapper" style="display: flex; align-items: center;">
+                <!-- Left navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel esquerda" onclick="voltar()">←</button>
+                </div>
+
+                <!-- Carousel slides container -->
+                <div style="overflow-x: hidden;">
+                    <div class="slides" id="slides">
+                        <!-- Each product slide -->
+                        <div class="slide">
+                            <img src="" alt="Slide 1">
+                            <div class="descricao">Produto 1 - R$ 29,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 2">
+                            <div class="descricao">Produto 2 - R$ 39,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 3">
+                            <div class="descricao">Produto 3 - R$ 49,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 4">
+                            <div class="descricao">Produto 4 - R$ 59,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 5">
+                            <div class="descricao">Produto 5 - R$ 69,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                        <div class="slide">
+                            <img src="" alt="Slide 6">
+                            <div class="descricao">Produto 6 - R$ 79,90</div>
+                            <button class="botao-carrinho">Adicionar ao carrinho</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right navigation button -->
+                <div class="botoes">
+                    <button class="botao-carrosel direita" onclick="avancar()">→</button>
+                </div>
             </div>
         </div>
     </div>
-
     <!-- Website footer -->
     <footer>
         <div class="footer">
