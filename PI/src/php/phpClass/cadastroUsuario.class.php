@@ -1,12 +1,13 @@
 <?php
     include 'conexao.class.php';
 
-    class Cadastro {
+    class Usuario {
         private $id_usuario;
         private $nome;
         private $email;
         private $contato;
         private $senha;
+        private $cpf;
         private $data_criacao;
 
         public function getIdUsuario() {
@@ -44,6 +45,13 @@
             $this->senha = $senha;
         }
 
+        public function getCpf() {
+            return $this->cpf;
+        }
+        public function setCpf($cpf) {
+            $this->cpf = $cpf;
+        }
+
         public function getDataCriacao() {
             return $this->data_criacao;
         }
@@ -56,7 +64,7 @@
             $conexao = new Conexao();
             $db = $conexao->getConnection();
             
-            $sql = 'INSERT INTO usuarios (nome, email, contato, senha) values (:nome, :email, :contato, :senha)';
+            $sql = 'INSERT INTO usuarios (nome, email, contato, senha, cpf) values (:nome, :email, :contato, :senha, :cpf)';
             try{
 
                 // Gerar o hash da senha antes de armazenar
@@ -67,6 +75,7 @@
                 $stmt->bindParam(':contato', $this->contato);
                 $stmt->bindParam(':email', $this->email);
                 $stmt->bindParam(':senha', $senhaHash);
+                $stmt->bindParam(':cpf', $this->cpf);
                 $stmt->execute();
                 return true;
             } catch(PDOException $e){
@@ -100,4 +109,22 @@
                 return null;
             }
         }
+
+        public function selectUsuarioId($id_usuario){
+            $database = new Conexao();
+            $db = $database->getConnection();
+            $sql = "SELECT * FROM usuarios WHERE id_usuario=:id_usuario";
+            try{
+                $stmt = $db->prepare($sql);
+                $stmt->bindParam(':id_usuario',$id_usuario);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result;
+            }catch(PDOException $e){
+                echo 'Erro ao listar usuário: ' . $e->getMessage();
+                $result = [];
+                return $result;
+            }
+        }
+
     }

@@ -1,7 +1,13 @@
 <?php
 session_start();
-$usuarioLogadoNome = $_SESSION['usuario_nome'] ?? null;
+include 'phpClass/cadastroUsuario.class.php';
+
 $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
+
+
+$a = new Usuario();
+$usuario = $a->selectUsuarioId($usuarioLogadoId);
+
 
 ?>
 
@@ -14,7 +20,7 @@ $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Link to external CSS and JavaScript -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleIndex.css">
 </head>
 
 <body>
@@ -23,12 +29,12 @@ $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
         <nav class="menu">
             <!-- Company logo -->
             <div class="logo">
-                <img src="../../assets/images/logo.png" alt="Company logo" id="logo" />
+                <a href="index.php"><img src="../../assets/images/logo.png" alt="Company logo" id="logo" /></a>
             </div>
 
             <!-- Navigation links -->
             <ul class="nav-links">
-                <li><a href="#">Início</a></li>
+                <li><a href="">Início</a></li>
                 <li><a href="#">Sobre</a></li>
                 <li><a href="#">Serviços</a></li>
                 <li><a href="#">Contato</a></li>
@@ -42,8 +48,8 @@ $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
 
             <!-- User login/register -->
             <div class="user-access">
-                <?php if ($usuarioLogadoNome): ?>
-                    <span>Bem-vindo, <a href="dadosUsuario.php"><?= htmlspecialchars($usuarioLogadoNome) ?></a>!</span> | 
+                <?php if ($usuario): ?>
+                    <span>Bem-vindo, <a href="areaUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
                     <a href="logout.php">Sair</a>
                 <?php else: ?>
                     <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
@@ -149,12 +155,15 @@ $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
                     <input type="email" id="email" name="email" required placeholder="Insira seu e-mail">
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="contato" name="contato" required placeholder="(XX) XXXXX-XXXX">
+                    <input type="text" id="cpf" name="cpf" required placeholder="Inisira seu CPF">
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="contato" name="contato" required placeholder="(00) 00000-0000">
                 </div>
                 <div class="input-modal">
                     <input type="password" id="senha" name="senha" required placeholder="Insira sua senha">
                 </div>
-                <button type="submit" >Register</button>
+                <button type="submit" >Registrar</button>
             </form>
         </div>
     </div>
@@ -176,7 +185,7 @@ $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
     </div>
     <!-- Successfully message -->
     <div id="mensagemRetorno" class="mensagem-sucesso" ></div>
-    <script src="../js/script.js" defer></script>
+    <script src="../js/scriptIndex.js" defer></script>
     <script src="https://unpkg.com/imask"></script>
 </body>
 

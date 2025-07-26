@@ -1,5 +1,5 @@
 <?php
-include 'phpClass/cadastroUsuario.class.php';
+include 'phpClass/cadastroEndereco.class.php';
 
 function cors() {
     
@@ -33,20 +33,22 @@ $resposta = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $cadastro = new Usuario();
-    //$resposta['message'] = $_POST;
-    $cadastro->setNome($_POST['nome']);
-    $cadastro->setEmail($_POST['email']);
-    $cadastro->setCpf($_POST['cpf']);
-    $cadastro->setContato($_POST['contato']);
-    $cadastro->setSenha($_POST['senha']);
+    $endereco = new Endereco();
 
+    $endereco->setIdUsuario($_POST['id_usuario']);
+    $endereco->setNumero($_POST['numero']);
+    $endereco->setCep($_POST['cep']);
+    $endereco->setRua($_POST['rua']);
+    $endereco->setBairro($_POST['bairro']);
+    $endereco->setCidade($_POST['cidade']);
+    $endereco->setEstado($_POST['estado']);
+    $endereco->setComplemento($_POST['complemento']);
 
-    if ($cadastro->cadastrarUsuario()) {
+    if ($endereco->inserirEndereco()) {
         $resposta['status'] = 'ok';
         $resposta['message'] = "<h1>Cadastro efetuado com sucesso!</h1>";
     } else {
-        $resposta['message'] =  "<p>Erro ao cadastrar usuário.</xp>";
+        $resposta['message'] =  "<p>Erro ao cadastrar endereço.</xp>";
     }
 }
 

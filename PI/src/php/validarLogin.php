@@ -44,13 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $cadastro = new Cadastro();
+    $cadastro = new Usuario();
     $usuario = $cadastro->listarUsuarios($email, $senha);
 
     if ($usuario) {
         session_start();
         $_SESSION['usuario_id'] = $usuario['id_usuario'];
-        $_SESSION['usuario_nome'] = $usuario['nome'];
 
         $resposta['status'] = 'ok';
     } else {
