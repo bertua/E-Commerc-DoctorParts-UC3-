@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 09/07/2025 às 02:33
+-- Tempo de geração: 29/07/2025 às 02:40
 -- Versão do servidor: 11.8.2-MariaDB
 -- Versão do PHP: 8.4.4
 
@@ -46,6 +46,16 @@ CREATE TABLE `categorias` (
   `nome` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `categorias`
+--
+
+INSERT INTO `categorias` (`id_categoria`, `nome`) VALUES
+(1, 'Diversos'),
+(2, 'Óleos e lubrificantes'),
+(3, 'Pneus'),
+(4, 'Roupas');
+
 -- --------------------------------------------------------
 
 --
@@ -55,25 +65,28 @@ CREATE TABLE `categorias` (
 CREATE TABLE `enderecos` (
   `id_endereco` int(11) NOT NULL,
   `id_usuario` int(11) DEFAULT NULL,
-  `identificacao` varchar(255) DEFAULT NULL,
+  `numero` varchar(255) DEFAULT NULL,
   `cep` varchar(255) DEFAULT NULL,
   `rua` varchar(255) DEFAULT NULL,
   `bairro` varchar(255) DEFAULT NULL,
   `cidade` varchar(255) DEFAULT NULL,
-  `estado` varchar(255) DEFAULT NULL
+  `estado` varchar(255) DEFAULT NULL,
+  `complemento` varchar(255) DEFAULT NULL,
+  `padrao` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Estrutura para tabela `enderecos_usuario`
+-- Despejando dados para a tabela `enderecos`
 --
 
-CREATE TABLE `enderecos_usuario` (
-  `id_enderecos_usuarios` int(11) NOT NULL,
-  `id_endereco` int(11) DEFAULT NULL,
-  `id_usuario` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `enderecos` (`id_endereco`, `id_usuario`, `numero`, `cep`, `rua`, `bairro`, `cidade`, `estado`, `complemento`, `padrao`) VALUES
+(1, NULL, 'Casa de 10 andares', '99711102', 'Rua Paulo Pedro Zimmer', 'Zimmer', 'Erechim', 'RS', NULL, 0),
+(2, NULL, 'Casa de 10 andares', '99702022', 'Rua Léo Neuls', 'Espírito Santo', 'Erechim', 'RS', NULL, 0),
+(3, NULL, 'Casa de 10 andares', '99702022', 'Rua Paulo Pedro Zimmer', 'Zimmer', 'Erechim', 'RS', NULL, 0),
+(4, NULL, NULL, '99702022', 'Rua Paulo Pedro Zimmer', 'Zimmer', 'Erechim', 'RS', NULL, 0),
+(5, 14, '60', '99702022', 'Rua Paulo Pedro Zimmer', 'Zimmer', 'Erechim', 'RS', NULL, 0),
+(6, 14, '60', '99760-000', 'Rua Léo Neuls', 'Centro', 'Itatiba do Sul', 'RS', NULL, 0),
+(7, 14, '50', '99700-010', 'Praça da Bandeira', 'Centro', 'Erechim', 'RS', 'JAfaris', 0);
 
 -- --------------------------------------------------------
 
@@ -135,6 +148,18 @@ CREATE TABLE `produtos` (
   `data_criacao` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `produtos`
+--
+
+INSERT INTO `produtos` (`id_produto`, `id_categoria`, `nome`, `descricao`, `preco`, `estoque`, `image_url`, `data_criacao`) VALUES
+(1, 1, 'Bauleto', 'Bauleto preto', 29.00, 10, '../../assets/images/bauletoBraz5Adventure56LPreto.png', '2025-07-27 20:33:46'),
+(2, 1, 'Capacete', 'Capacete HJC', 39.00, 10, '../../assets/images/capaceteHJC.jpg', '2025-07-27 20:45:53'),
+(3, 1, 'Escapamento', 'Escapamento GSX', 49.00, 10, '../../assets/images/escapeGSX-R1000.jpg', '2025-07-27 20:45:53'),
+(4, 1, 'Espelho', 'Espelho Risoma Triangular', 59.00, 10, '../../assets/images/espelhoRisomaTriangular.png', '2025-07-27 20:45:53'),
+(5, 1, 'Guidão', 'Guidão Renthal', 69.00, 10, '../../assets/images/guidaoRenthal.jpg', '2025-07-27 20:45:53'),
+(6, 1, 'Jaqueta', 'Jaqueta Alpine Star', 79.00, 10, '../../assets/images/jaquetaAlpineStar.png', '2025-07-27 20:45:53');
+
 -- --------------------------------------------------------
 
 --
@@ -147,19 +172,29 @@ CREATE TABLE `usuarios` (
   `email` varchar(255) DEFAULT NULL,
   `contato` varchar(20) DEFAULT NULL,
   `senha` varchar(255) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT current_timestamp()
+  `data_criacao` datetime DEFAULT current_timestamp(),
+  `cpf` varchar(21) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `contato`, `senha`, `data_criacao`) VALUES
-(1, 'Bernardo', 'bernardo@gmail.com', '(54) 99224-1835', 'beleza', '2025-07-03 19:52:49'),
-(2, 'Bernardo', 'bernardo@gmail.com', '(54) 99224-1835', '$2y$12$9Ha6znRhAbBjhh8SPbvjbOdpMbGFWhoAZ4zm.75RbB7fRkMVZu496', '2025-07-03 20:12:36'),
-(3, 'Bernardo', 'lucas@gmail.com', '(51) 35135-5135', '$2y$12$YZffQ7POLKQJt5Q/tsAD2uhegEHuRc1BAcamXkSScRVEqtUVmn6qO', '2025-07-03 20:42:34'),
-(4, 'Enzzo Viadinho', 'enzzo@gmail.com', '(55) 46565-6445', '$2y$12$xEL.EGyWCQLf4rjMYMBNPOVJZOBAHAfmBawtU8Q7Yheyd8R6/eCE2', '2025-07-03 21:27:40'),
-(5, 'lucas2', 'lucas2@gmail.com', '(99) 99999-9999', '$2y$12$S99RRNpc1qN86aP8jDgEXuKajXsQczcjtbE5To83LH3xhvsRwK1zG', '2025-07-08 19:17:48');
+INSERT INTO `usuarios` (`id_usuario`, `nome`, `email`, `contato`, `senha`, `data_criacao`, `cpf`) VALUES
+(1, 'Bernardo', 'bernardo@gmail.com', '(54) 99224-1835', 'beleza', '2025-07-03 19:52:49', NULL),
+(2, 'Bernardo', 'bernardo@gmail.com', '(54) 99224-1835', '$2y$12$9Ha6znRhAbBjhh8SPbvjbOdpMbGFWhoAZ4zm.75RbB7fRkMVZu496', '2025-07-03 20:12:36', NULL),
+(3, 'Bernardo', 'lucas@gmail.com', '(51) 35135-5135', '$2y$12$YZffQ7POLKQJt5Q/tsAD2uhegEHuRc1BAcamXkSScRVEqtUVmn6qO', '2025-07-03 20:42:34', NULL),
+(4, 'Enzzo Viadinho', 'enzzo@gmail.com', '(55) 46565-6445', '$2y$12$xEL.EGyWCQLf4rjMYMBNPOVJZOBAHAfmBawtU8Q7Yheyd8R6/eCE2', '2025-07-03 21:27:40', NULL),
+(5, 'lucas2', 'lucas2@gmail.com', '(99) 99999-9999', '$2y$12$S99RRNpc1qN86aP8jDgEXuKajXsQczcjtbE5To83LH3xhvsRwK1zG', '2025-07-08 19:17:48', NULL),
+(6, 'bernardo', 'bernardo2@gmail.com', '(54) 99224-1835', '$2y$12$a9C1JlcXOS9ODQ2N2ANSvuJF0wFTmmAxmxAshcEg8iJbMTs8mtdlG', '2025-07-21 19:20:13', NULL),
+(7, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$zq8HD8u0spUhNmt.YK8uYO84X3i3sFU2G7/Mt91pNwYWT0gtiC792', '2025-07-21 19:44:57', NULL),
+(8, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$WYSYPiaWkkTB0ZNDckRsDeuo7q3OtwIInUpAAIK5yGCrg1yTPAibq', '2025-07-21 19:45:02', NULL),
+(9, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$Z5s6wmypfjYXctmx2kibxumtxRIst5KmyqeHUOuzzjkwLm1dFo9La', '2025-07-21 19:45:33', NULL),
+(10, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$fw52LdTz2u6P7XB8gbj23.gLifpi8uIXKV9ZiFy9hrUlMQP3y3I/u', '2025-07-21 19:47:27', NULL),
+(11, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$YcYDRa7JRHDZQcQHjcMqyOJRw2aEyTPrk3GyKoIS2ewTXCdihHbti', '2025-07-21 19:47:37', NULL),
+(12, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$raIhml1pYeiEoAvbXH1ZPOCUNmWDx7uw0rBxCURex87zwLiUgiqNS', '2025-07-21 19:49:29', NULL),
+(13, 'wilian', 'wilian@gmail.com', '(99) 99999-9999', '$2y$12$VJvv76NMT6bo4RRtZDzzUu2Wd.JzSWl9099epr8u07aRhb/LkSUHG', '2025-07-21 19:49:47', '999.999.999-99'),
+(14, 'Bolsonaro', 'bolsonaro@gmail.com', '(21) 31231-2312', '$2y$12$rqNpEwrdhCFuBaBQYirqcu4VHcnjo4MDoj5atzFAHILfm3TkNCV6O', '2025-07-21 19:53:41', '232.131.231-23');
 
 --
 -- Índices para tabelas despejadas
@@ -184,14 +219,6 @@ ALTER TABLE `categorias`
 --
 ALTER TABLE `enderecos`
   ADD PRIMARY KEY (`id_endereco`),
-  ADD KEY `id_usuario` (`id_usuario`);
-
---
--- Índices de tabela `enderecos_usuario`
---
-ALTER TABLE `enderecos_usuario`
-  ADD PRIMARY KEY (`id_enderecos_usuarios`),
-  ADD KEY `id_endereco` (`id_endereco`),
   ADD KEY `id_usuario` (`id_usuario`);
 
 --
@@ -243,19 +270,13 @@ ALTER TABLE `carrinho`
 -- AUTO_INCREMENT de tabela `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de tabela `enderecos`
 --
 ALTER TABLE `enderecos`
-  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `enderecos_usuario`
---
-ALTER TABLE `enderecos_usuario`
-  MODIFY `id_enderecos_usuarios` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_endereco` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `itens_pedido`
@@ -279,13 +300,13 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de tabela `produtos`
 --
 ALTER TABLE `produtos`
-  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Restrições para tabelas despejadas
@@ -303,13 +324,6 @@ ALTER TABLE `carrinho`
 --
 ALTER TABLE `enderecos`
   ADD CONSTRAINT `enderecos_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
-
---
--- Restrições para tabelas `enderecos_usuario`
---
-ALTER TABLE `enderecos_usuario`
-  ADD CONSTRAINT `enderecos_usuario_ibfk_1` FOREIGN KEY (`id_endereco`) REFERENCES `enderecos` (`id_endereco`),
-  ADD CONSTRAINT `enderecos_usuario_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`);
 
 --
 -- Restrições para tabelas `itens_pedido`

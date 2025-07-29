@@ -38,14 +38,18 @@ document.getElementById('cep').addEventListener('blur', function () {
 
 function excluirEndereco(id_endereco) {
     if (confirm('Tem certeza que deseja excluir este endereço?')) {
-        fetch(`phpClass.cadastroEndereco.class.php?id_endereco=${id_endereco}`, {
-            method: 'DELETE'
+        const formData = new FormData();
+        formData.append('id_endereco', id_endereco);
+
+        fetch('excluirEndereco.php', {
+            method: 'POST',
+            body: formData
         })
         .then(response => response.json())
         .then(res => {
             if (res.status === 'ok') {
                 exibirMensagem(res.message || 'Endereço excluído com sucesso!');
-                location.reload(); // Recarrega a página para atualizar a lista de endereços
+                setTimeout(() => location.reload(), 1500); // Aguarda a mensagem antes de recarregar
             } else {
                 exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
             }
@@ -56,6 +60,7 @@ function excluirEndereco(id_endereco) {
         });
     }
 }
+
 
 
 function exibirMensagem(texto, tipo = 'success') {
