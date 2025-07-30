@@ -153,12 +153,12 @@ CREATE TABLE `produtos` (
 --
 
 INSERT INTO `produtos` (`id_produto`, `id_categoria`, `nome`, `descricao`, `preco`, `estoque`, `image_url`, `data_criacao`) VALUES
-(1, 1, 'Bauleto', 'Bauleto preto', 29.00, 10, '../../assets/images/bauletoBraz5Adventure56LPreto.png', '2025-07-27 20:33:46'),
-(2, 1, 'Capacete', 'Capacete HJC', 39.00, 10, '../../assets/images/capaceteHJC.jpg', '2025-07-27 20:45:53'),
-(3, 1, 'Escapamento', 'Escapamento GSX', 49.00, 10, '../../assets/images/escapeGSX-R1000.jpg', '2025-07-27 20:45:53'),
-(4, 1, 'Espelho', 'Espelho Risoma Triangular', 59.00, 10, '../../assets/images/espelhoRisomaTriangular.png', '2025-07-27 20:45:53'),
-(5, 1, 'Guidão', 'Guidão Renthal', 69.00, 10, '../../assets/images/guidaoRenthal.jpg', '2025-07-27 20:45:53'),
-(6, 1, 'Jaqueta', 'Jaqueta Alpine Star', 79.00, 10, '../../assets/images/jaquetaAlpineStar.png', '2025-07-27 20:45:53');
+(1, 1, 'Bauleto', 'Bauleto preto', 29.00, 10, '../../../assets/images/bauletoBraz5Adventure56LPreto.png', '2025-07-27 20:33:46'),
+(2, 1, 'Capacete', 'Capacete HJC', 39.00, 10, '../../../assets/images/capaceteHJC.jpg', '2025-07-27 20:45:53'),
+(3, 1, 'Escapamento', 'Escapamento GSX', 49.00, 10, '../../../assets/images/escapeGSX-R1000.jpg', '2025-07-27 20:45:53'),
+(4, 1, 'Espelho', 'Espelho Risoma Triangular', 59.00, 10, '../../../assets/images/espelhoRisomaTriangular.png', '2025-07-27 20:45:53'),
+(5, 1, 'Guidão', 'Guidão Renthal', 69.00, 10, '../../../assets/images/guidaoRenthal.jpg', '2025-07-27 20:45:53'),
+(6, 1, 'Jaqueta', 'Jaqueta Alpine Star', 79.00, 10, '../../../assets/images/jaquetaAlpineStar.png', '2025-07-27 20:45:53');
 
 -- --------------------------------------------------------
 

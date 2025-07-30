@@ -1,5 +1,5 @@
 <?php
-include '../classes/cadastroUsuario.class.php';
+include '../classes/usuario.class.php';
 
 function cors() {
     

@@ -9,6 +9,7 @@
         private $senha;
         private $cpf;
         private $data_criacao;
+        private $isadmin = false;
 
         public function getIdUsuario() {
             return $this->id_usuario;
@@ -64,8 +65,16 @@
             $conexao = new Conexao();
             $db = $conexao->getConnection();
             
-            $sql = 'INSERT INTO usuarios (nome, email, contato, senha, cpf) values (:nome, :email, :contato, :senha, :cpf)';
+            $sql = 'INSERT INTO usuarios (nome, email, contato, senha, cpf, isadmin) values (:nome, :email, :contato, :senha, :cpf, :isadmin)';
             try{
+
+                $check = $db->query("SELECT COUNT(*) FROM usuarios");
+                $totalUsuarios = $check->fetchColumn();
+
+                // Se não houver nenhum usuário, define como admin
+                if ($totalUsuarios == 0) {
+                    $this->isadmin = true;
+                }
 
                 // Gerar o hash da senha antes de armazenar
                 $senhaHash = password_hash($this->senha, PASSWORD_DEFAULT);
@@ -76,6 +85,7 @@
                 $stmt->bindParam(':email', $this->email);
                 $stmt->bindParam(':senha', $senhaHash);
                 $stmt->bindParam(':cpf', $this->cpf);
+                $stmt->bindParam(':isadmin', $this->isadmin, PDO::PARAM_BOOL);
                 $stmt->execute();
                 return true;
             } catch(PDOException $e){
