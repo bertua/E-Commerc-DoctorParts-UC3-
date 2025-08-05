@@ -50,7 +50,8 @@
                 <!-- User login/register -->
                 <div class="user-access">
                     <?php if ($usuario): ?>
-                        <span>Bem-vindo, <a href="dadosUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
+                        <span>Bem-vindo, <a href="dadosUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span>
+                        <a href=""></a>| 
                         <a href="logout.php">Sair</a>
                     <?php else: ?>
                         <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
@@ -66,24 +67,20 @@
         </header>
         <div class="container">
             <div class="mini-menu">
-                <div class="item-mini-menu">
-                    <button onclick="window.location.href='dadosUsuario.php'"> 
-                        <h1>Meus Dados</h1>
-                        <p>Altere seus dados cadastrados, endereço ou cadastre <br>um novo endereço.</p>
-                    </a>
+                <div class="item-mini-menu" onclick="window.location.href='dadosUsuario.php'"> 
+                    <h1>Meus Dados</h1>
+                    <p>Altere seus dados cadastrados, endereço ou cadastre <br>um novo endereço.</p>
                 </div>
-                <div class="item-mini-menu">
-                    <button onclick="window.location.href='meusPedidos.php'">
-                        <h1>Meus Pedidos</h1>
-                        <p>Veja o histórico de compras, detalhes dos pedidos e status.</p>
-                    </a>
+                <div class="item-mini-menu" onclick="window.location.href='meusPedidos.php'">
+                    <h1>Meus Pedidos</h1>
+                    <p>Veja o histórico de compras, detalhes dos pedidos e status.</p>
                 </div> 
+                <div class="ultimo-pedido">
+                    <h1>Último Pedido</h1>
+                    <p>Pedido realizado em: <?= isset($usuario['ultimo_pedido']) ? htmlspecialchars($usuario['ultimo_pedido']) : 'Nenhum pedido realizado.' ?></p>
+                    <p>Status: <?= isset($usuario['status_pedido']) ? htmlspecialchars($usuario['status_pedido']) : 'N/A' ?></p>
+                </div>
             </div> 
-            <div class="ultimo-pedido">
-                <h1>Último Pedido</h1>
-                <p>Pedido realizado em: <?= isset($usuario['ultimo_pedido']) ? htmlspecialchars($usuario['ultimo_pedido']) : 'Nenhum pedido realizado.' ?></p>
-                <p>Status: <?= isset($usuario['status_pedido']) ? htmlspecialchars($usuario['status_pedido']) : 'N/A' ?></p>
-            </div>
         </div>
         <!-- Website footer -->
         <footer>

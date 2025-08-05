@@ -46,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($endereco->inserirEndereco()) {
         $resposta['status'] = 'ok';
-        $resposta['message'] = "<h1>Cadastro efetuado com sucesso!</h1>";
+        $resposta['message'] = '<h1>Cadastro de endereço efetuado com sucesso!</h1>';
     } else {
-        $resposta['message'] =  "<p>Erro ao cadastrar endereço.</xp>";
+        $resposta['message'] = '<p>Erro ao cadastrar endereço.</p>';
     }
 }
 

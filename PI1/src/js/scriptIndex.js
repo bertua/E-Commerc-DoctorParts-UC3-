@@ -7,7 +7,7 @@ const slidesVisiveis = 4;
 let indiceAtual = 0;
 
 const atualizarTransform = () => {
-    const larguraSlide = carrossel.querySelector('.slide').offsetWidth + 10; // 10px margem
+    const larguraSlide = carrossel.querySelector('.slide').offsetWidth + 4.5; // 10px margem
     const deslocamento = -indiceAtual * larguraSlide;
     slides.style.transform = `translateX(${deslocamento}px)`;
 };

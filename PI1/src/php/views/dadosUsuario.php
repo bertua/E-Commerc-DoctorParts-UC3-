@@ -33,7 +33,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
         <nav class="menu">
             <!-- Company logo -->
             <div class="logo">
-                <a href="index.php"><img src="../../assets/images/logo.png" alt="Company logo" id="logo" /></a>
+                <a href="index.php"><img src="../../../assets/images/logo.png" alt="Company logo" id="logo" /></a>
             </div>
 
             <!-- Navigation links -->
@@ -47,7 +47,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             <!-- Search bar -->
             <div id="divBusca">
                 <input type="text" id="txtBusca" placeholder="Buscar..." />
-                <img src="../../assets/images/lupa.jpg" width="20px" height="20px" id="btnBusca" alt="Search" />
+                <img src="../../../assets/images/lupa.jpg" width="20px" height="20px" id="btnBusca" alt="Search" />
             </div>
 
             <!-- User login/register -->
@@ -63,7 +63,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
 
             <!-- Shopping cart icon -->
             <div id="divCarrinho">
-                <img src="../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
+                <img src="../../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
             </div>
         </nav>
     </header>
@@ -113,7 +113,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
         <?php endforeach; ?>
 
                     <div class="actions">
-                            <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
+                        <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
                     </div>
                 <?php else: ?>
                     <div class="no-address">
@@ -133,14 +133,14 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
         <div class="footer">
             <!-- Contact section -->
             <div class="contato">
-                <p><img src="../../assets/images/whatsapp.png" alt="" id="imagem-contato" />WhatsApp: 54 99269-0769</p>
-                <p><img src="../../assets/images/telefone.png" alt="" id="imagem-contato" />Phone: 54 99262-0769</p>
+                <p><img src="../../../assets/images/whatsapp.png" alt="" id="imagem-contato" />WhatsApp: 54 99269-0769</p>
+                <p><img src="../../../assets/images/telefone.png" alt="" id="imagem-contato" />Phone: 54 99262-0769</p>
             </div>
 
             <!-- Social media -->
             <div class="contato">
-                <p><img src="../../assets/images/intagram.png" alt="" id="imagem-contato" />Instagram: DoctorParts</p>
-                <p><img src="../../assets/images/facebook.png" alt="" id="imagem-contato" />Facebook: DoctorParts</p>
+                <p><img src="../../../assets/images/intagram.png" alt="" id="imagem-contato" />Instagram: DoctorParts</p>
+                <p><img src="../../../assets/images/facebook.png" alt="" id="imagem-contato" />Facebook: DoctorParts</p>
             </div>
 
             <!-- About section -->
@@ -158,7 +158,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             <span class="fechar" onclick="fecharPopupCadastroEndereco()">&times;</span>
             <h2>Cadastro de endereço</h2>
             <!-- Registration form -->
-            <form id="formCadastroEndereco" action="inserirEndereco.php" method="POST">
+            <form id="formCadastroEndereco" action="../controllers/inserirEndereco.php" method="POST">
                 <input type="hidden" name="id_usuario" id="id_usuario" value="<?= $usuarioLogadoId ?>">
                 <div class="input-modal">
                     <input type="text" id="cep" name="cep" required placeholder="Insira um CEP">
@@ -172,7 +172,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
                 <div class="input-modal">
                     <input type="text" id="bairro" name="bairro" required placeholder="Bairro">
                 </div>
-                <div class="input-modal">x
+                <div class="input-modal">
                     <input type="text" id="cidade" name="cidade" required placeholder="Cidade">
                 </div>
                 <div class="input-modal">
@@ -187,7 +187,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
     </div>
 
     <div id="mensagemRetorno" class="mensagem-sucesso" ></div>
-    <script src="../js/scriptDadosUsuario.js" defer></script>
+    <script src="../../js/scriptDadosUsuario.js" defer></script>
     <script src="https://unpkg.com/imask"></script>
 </body>
 </html>

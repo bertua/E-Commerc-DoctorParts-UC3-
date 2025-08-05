@@ -53,7 +53,7 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                 <?php if ($usuario): ?>
                     <span>Bem-vindo, <a href="areaUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> 
                     
-                    | 
+                    |
                     <a href="../controllers/logout.php">Sair</a>
                 <?php else: ?>
                     <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
