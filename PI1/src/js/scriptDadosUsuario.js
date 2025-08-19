@@ -77,33 +77,73 @@ formCadastroEndereco.addEventListener('submit', function (e) {
     });
 });
 
-
-
-
-function excluirEndereco(id_endereco) {
-    if (confirm('Tem certeza que deseja excluir este endereço?')) {
-        const formData = new FormData();
-        formData.append('id_endereco', id_endereco);
-
-        fetch('excluirEndereco.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(res => {
-            if (res.status === 'ok') {
-                exibirMensagem(res.message || 'Endereço excluído com sucesso!');
-                setTimeout(() => location.reload(), 1500); // Aguarda a mensagem antes de recarregar
-            } else {
-                exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            exibirMensagem('Erro ao excluir o endereço', 'erro');
-        });
-    }
+// Abre o popup e seta o id no input hidden
+function abrirPopupConfirmacaoExcluirEndereco(id_endereco) {
+    document.getElementById('enderecoIdExcluir').value = id_endereco;
+    document.getElementById('popupConfirmExcluirEndereco').style.display = 'flex';
 }
+
+// Fecha o popup
+function fecharPopupConfirmacaoExcluirEndereco() {
+    document.getElementById('popupConfirmExcluirEndereco').style.display = 'none';
+}
+
+// Listener para o form de exclusão
+const formExcluir = document.getElementById('confirmExcluirEndereco');
+
+formExcluir.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new URLSearchParams();
+    formData.append('id_endereco', document.getElementById('enderecoIdExcluir').value);
+
+    fetch(formExcluir.action, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(res => {
+        if (res.status === 'ok') {
+            exibirMensagem(res.message || 'Endereço excluído com sucesso!');
+            fecharPopupConfirmacaoExcluirEndereco();
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
+        }
+    })
+    .catch(() => {
+        exibirMensagem('Erro ao excluir o endereço', 'erro');
+    });
+});
+
+function tornarPadrao(id_endereco) {
+    const formData = new URLSearchParams();
+    formData.append('id_endereco', id_endereco);
+
+    fetch('tornarPadrao.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(res => {
+        if (res.status === 'ok') {
+            exibirMensagem(res.message || 'Endereço definido como padrão!');
+            setTimeout(() => location.reload(), 1500);
+        } else {
+            exibirMensagem(res.message || 'Erro ao definir padrão', 'erro');
+        }
+    })
+    .catch(() => {
+        exibirMensagem('Erro ao processar a requisição.', 'erro');
+    });
+}
+
 
 function exibirMensagem(texto, tipo = 'success') {
     mensagem.innerHTML = texto;

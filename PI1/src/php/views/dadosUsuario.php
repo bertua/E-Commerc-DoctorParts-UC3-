@@ -80,41 +80,40 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
                 </div>
                 <div class="actions">
                     <a href="editarDados.php" class="btn">Editar Dados</a>
-                    <a href="alterarSenha.php" class="btn">Alterar</a> 
+                    <a href="alterarSenha.php" class="btn">Alterar Senha</a> 
                 </div>
             </div>
 
             <div class="dados-endereco bloco">
                 <h1>Endereços</h1>
                 <?php if (!empty($enderecos)): ?>
-                    <?php foreach ($enderecos as $endereco): ?>
-            <div class="endereco">
-                <div class="card-endereco <?= $endereco['padrao'] ? 'padrao' : '' ?>">
-                    <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong> <?= $endereco['padrao'] ? '(Padrão)' : '' ?></p>
-                    
-                    <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong></p>
-                    <p><?= htmlspecialchars($endereco['rua']) ?></p>
-                    <p>Número: <?= htmlspecialchars($endereco['numero']) ?><?= $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
-                    <p>CEP <?= htmlspecialchars($endereco['cep']) ?> – <?= htmlspecialchars($endereco['cidade']) ?>, <?= htmlspecialchars($endereco['estado']) ?></p>
-
-
-<!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
-                    <div class="acoes-endereco"> 
-                        <a href="javascript:void(0)" onclick="excluirEndereco(<?= $endereco['id_endereco'] ?>)" class="excluirEndereco.php">EXCLUIR</a>
-                        <a href="editarEndereco.php?id_endereco=<?= $endereco['id_endereco'] ?>" class="link-acao editar">EDITAR</a>
-                        <?php if (!$endereco['padrao']): ?>
-                            <a href="tornarPadrao.php?id=<?= $endereco['id_endereco'] ?>" class="link-acao padrao">DEIXAR PADRÃO</a>
-                        <?php else: ?>
-                            <span class="link-acao padrao">PADRÃO</span>
-                        <?php endif; ?>
-                    </div>
+                <div class="actions">
+                    <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Novo Endereço</a>
                 </div>
-            </div>
-        <?php endforeach; ?>
+                <?php foreach ($enderecos as $endereco): ?>
+                    <div class="endereco">
+                        <div class="card-endereco <?= $endereco['padrao'] ? 'padrao' : '' ?>">
+                            <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong> <?= $endereco['padrao'] ? '(Padrão)' : '' ?></p>
+                            
+                            <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong></p>
+                            <p><?= htmlspecialchars($endereco['rua']) ?></p>
+                            <p>Número: <?= htmlspecialchars($endereco['numero']) ?><?= $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
+                            <p>CEP <?= htmlspecialchars($endereco['cep']) ?> – <?= htmlspecialchars($endereco['cidade']) ?>, <?= htmlspecialchars($endereco['estado']) ?></p>
 
-                    <div class="actions">
-                        <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
+
+                            <!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
+                            <div class="acoes-endereco"> 
+                                <a href="javascript:void(0)" onclick="abrirPopupConfirmacaoExcluirEndereco(<?php $endereco['id_endereco'] ?>)" class="link-acao excluirEndereco">EXCLUIR</a>
+                                <a href="javascript:void(0)" onclick="abrirPopupEditarDadosEndereco(<?php $endereco['id_endereco'] ?>)" class="link-acao editar">EDITAR</a>
+                                <?php if (!$endereco['padrao']): ?>
+                                    <a href="javascript:void(0)" onclick="tornarPadrao(<?= $endereco['id_endereco'] ?>)" class="link-acao padrao">DEIXAR PADRÃO</a>
+                                <?php else: ?>
+                                    <span class="link-acao padrao">PADRÃO</span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
+                <?php endforeach; ?>
                 <?php else: ?>
                     <div class="no-address">
                         <p><strong>Nenhum endereço cadastrado.</strong></p>
@@ -182,6 +181,72 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
                     <input type="text" id="complemento" name="complemento" placeholder="Complemento (opcional)">
                 </div>
                 <button type="submit" >Registrar</button>
+            </form>
+        </div>
+    </div>
+    <!-- Edit user data modal PopUp-->
+    <div id="popupEditarDadosUsuario" class="modal">
+        <div class="modal-conteudo">
+            <!-- Close button -->
+            <span class="fechar" onclick="fecharPopupEditarDadosUsuario()">&times;</span>
+            <h2>Cadastro</h2>
+            <!-- Registration form -->
+            <form id="formEditarDadosUsuario" action="../controllers/editarDadosUsuario.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo $usuario['id_usuario']; ?>">
+                <div class="input-modal">   
+                    <input type="text" id="nome" name="nome" value="<?php echo $usuario['nome']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="email" id="email" name="email" value="<?php echo $usuario['email']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="text" id="cpf" name="cpf" value="<?php echo $usuario['cpf']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="contato" name="contato" value="<?php echo $usuario['contato']; ?>" required>
+                </div>
+                <button type="submit" >Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit user data modal PopUp-->
+    <div id="popupEditarDadosEndereco" class="modal">
+        <div class="modal-conteudo">
+            <!-- Close button -->
+            <span class="fechar" onclick="fecharPopupEditarDadosEndereco()">&times;</span>
+            <h2>Cadastro</h2>
+            <!-- Registration form -->
+            <form id="formEditarDadosEndereco" action="../controllers/editarDadosUsuario.php" method="POST">
+                <input type="hidden" name="id" value="<?php echo $endereco['id_endereco']; ?>">
+                <div class="input-modal">   
+                    <input type="text" id="nome" name="nome" value="<?php echo $endereco['nome']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="email" id="email" name="email" value="<?php echo $endereco['email']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="text" id="cpf" name="cpf" value="<?php echo $endereco['cpf']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="contato" name="contato" value="<?php echo $endereco['contato']; ?>" required>
+                </div>
+                <button type="submit" >Salvar</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="popupConfirmExcluirEndereco" class="modal">
+        <div class="modal-conteudo">
+            <span class="fechar" onclick="fecharPopupConfirmacaoExcluirEndereco()">&times;</span>
+            <form id="confirmExcluirEndereco" action="../controllers/excluirEndereco.php" method="POST">
+                <input type="hidden" name="id" id="enderecoIdExcluir">
+                <h3>Tem certeza que deseja excluir este endereço?</h2>
+                <div class="botoes-confirmacao">
+                    <button type="button" onclick="fecharPopupConfirmacaoExcluirEndereco()">Cancelar</button>
+                    <button type="submit">Excluir</button>
+                </div>
             </form>
         </div>
     </div>
