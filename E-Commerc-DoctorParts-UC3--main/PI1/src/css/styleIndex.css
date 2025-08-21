@@ -342,3 +342,14 @@ footer {
   text-align: center;
   cursor: pointer;
 }
+
+.badge-carrinho {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 50%;
+}

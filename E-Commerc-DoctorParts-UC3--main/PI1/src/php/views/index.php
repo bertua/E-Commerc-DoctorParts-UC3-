@@ -2,13 +2,16 @@
 session_start();
 include '../classes/usuario.class.php';
 include '../classes/produto.class.php';
-
+include_once '../classes/carrinho.class.php';
 
 $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
 
 
 $a = new Usuario();
 $usuario = $a->selectUsuarioId($usuarioLogadoId);
+
+$carrinho = new Carrinho();
+$quantidadeItens = $usuario ? $carrinho->contarItens($usuarioLogadoId) : 0;
 
 
 ?>
@@ -65,6 +68,14 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                 <div id="divCarrinho">
                     <a href="carrinho.php">
                         <img src="../../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
+                    </a>
+                </div>
+                <div id="divCarrinho" style="position: relative;">
+                    <a href="carrinho.php">
+                        <img src="../../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
+                        <?php if ($quantidadeItens > 0): ?>
+                            <span class="badge-carrinho"><?= $quantidadeItens ?></span>
+                        <?php endif; ?>
                     </a>
                 </div>
         </nav>

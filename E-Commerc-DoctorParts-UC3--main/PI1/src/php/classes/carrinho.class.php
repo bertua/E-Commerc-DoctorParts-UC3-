@@ -37,5 +37,14 @@ class Carrinho {
         $stmt->bindParam(':id', $id_carrinho, PDO::PARAM_INT);
         $stmt->execute();
     }
+
+    public function contarItens($id_usuario) {
+    $sql = "SELECT SUM(quantidade) as total FROM carrinho WHERE id_usuario = :id_usuario";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id_usuario', $id_usuario);
+    $stmt->execute();
+    $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $resultado['total'] ?? 0;
+    }
 }
 ?>
