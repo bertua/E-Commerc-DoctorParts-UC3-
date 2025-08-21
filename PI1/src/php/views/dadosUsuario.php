@@ -92,21 +92,21 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
                 </div>
                 <?php foreach ($enderecos as $endereco): ?>
                     <div class="endereco">
-                        <div class="card-endereco <?= $endereco['padrao'] ? 'padrao' : '' ?>">
-                            <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong> <?= $endereco['padrao'] ? '(Padrão)' : '' ?></p>
-                            
-                            <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong></p>
-                            <p><?= htmlspecialchars($endereco['rua']) ?></p>
-                            <p>Número: <?= htmlspecialchars($endereco['numero']) ?><?= $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
-                            <p>CEP <?= htmlspecialchars($endereco['cep']) ?> – <?= htmlspecialchars($endereco['cidade']) ?>, <?= htmlspecialchars($endereco['estado']) ?></p>
+                        <div class="card-endereco <?php echo $endereco['padrao'] ? 'padrao' : '' ?>">
+                            <p> <strong><?php echo $endereco['padrao'] ? '(Padrão)' : '' ?></strong></p>
+                            <p><?php echo htmlspecialchars($endereco['rua']) ?></p>
+                            <p>Número: <?php echo htmlspecialchars($endereco['numero']) ?><?php echo $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
+                            <p>CEP <?php echo htmlspecialchars($endereco['cep']) ?> – <?php echo htmlspecialchars($endereco['cidade']) ?>, <?php echo htmlspecialchars($endereco['estado']) ?></p>
 
 
                             <!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
-                            <div class="acoes-endereco"> 
-                                <a href="javascript:void(0)" onclick="abrirPopupConfirmacaoExcluirEndereco(<?php $endereco['id_endereco'] ?>)" class="link-acao excluirEndereco">EXCLUIR</a>
-                                <a href="javascript:void(0)" onclick="abrirPopupEditarDadosEndereco(<?php $endereco['id_endereco'] ?>)" class="link-acao editar">EDITAR</a>
+                            <div class="acoes-endereco">
+                                <?php if (count($enderecos) > 1): ?>
+                                    <a href="javascript:void(0)" onclick="abrirPopupConfirmacaoExcluirEndereco(<?php echo $endereco['id_endereco'] ?>)" class="link-acao excluirEndereco">EXCLUIR</a>
+                                <?php endif; ?>
+                                <a href="javascript:void(0)" onclick="abrirPopupEditarDadosEndereco(<?php echo $endereco['id_endereco'] ?>)" class="link-acao editar">EDITAR</a>
                                 <?php if (!$endereco['padrao']): ?>
-                                    <a href="javascript:void(0)" onclick="tornarPadrao(<?= $endereco['id_endereco'] ?>)" class="link-acao padrao">DEIXAR PADRÃO</a>
+                                    <a href="javascript:void(0)" onclick="tornarPadrao(<?php echo $endereco['id_endereco'] ?>)" class="link-acao padrao">DEIXAR PADRÃO</a>
                                 <?php else: ?>
                                     <span class="link-acao padrao">PADRÃO</span>
                                 <?php endif; ?>
@@ -215,22 +215,31 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
         <div class="modal-conteudo">
             <!-- Close button -->
             <span class="fechar" onclick="fecharPopupEditarDadosEndereco()">&times;</span>
-            <h2>Cadastro</h2>
+            <h2>Editar Dados do Endereço</h2>
             <!-- Registration form -->
             <form id="formEditarDadosEndereco" action="../controllers/editarDadosUsuario.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo $endereco['id_endereco']; ?>">
+                <input type="hidden" name="id_endereco" value="<?php echo $endereco['id_endereco']; ?>">
                 <div class="input-modal">   
-                    <input type="text" id="nome" name="nome" value="<?php echo $endereco['nome']; ?>" required>
+                    <input type="text" id="cep" name="cep" value="<?php echo $endereco['cep']; ?>" required>
                 </div>
                 <div class="input-modal">
-                    <input type="email" id="email" name="email" value="<?php echo $endereco['email']; ?>" required>
+                    <input type="email" id="numero" name="numero" value="<?php echo $endereco['numero']; ?>" required>
                 </div>
                 <div class="input-modal">
-                    <input type="text" id="cpf" name="cpf" value="<?php echo $endereco['cpf']; ?>" required>
+                    <input type="text" id="rua" name="rua" value="<?php echo $endereco['rua']; ?>" required>
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="contato" name="contato" value="<?php echo $endereco['contato']; ?>" required>
+                    <input type="tel" id="bairro" name="bairro" value="<?php echo $endereco['bairro']; ?>" required>
                 </div>
+                <div class="input-modal">
+                    <input type="tel" id="cidade" name="cidade" value="<?php echo $endereco['cidade']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="estado" name="estado" value="<?php echo $endereco['estado']; ?>" required>
+                </div>
+                <div class="input-modal">
+                    <input type="tel" id="complemento" name="conplemento" value="<?php echo $endereco['complemento']; ?>" required>
+                </div>                
                 <button type="submit" >Salvar</button>
             </form>
         </div>
@@ -241,7 +250,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
         <div class="modal-conteudo">
             <span class="fechar" onclick="fecharPopupConfirmacaoExcluirEndereco()">&times;</span>
             <form id="confirmExcluirEndereco" action="../controllers/excluirEndereco.php" method="POST">
-                <input type="hidden" name="id" id="enderecoIdExcluir">
+                <input type="hidden" name="id_endereco" id="enderecoIdExcluir">
                 <h3>Tem certeza que deseja excluir este endereço?</h2>
                 <div class="botoes-confirmacao">
                     <button type="button" onclick="fecharPopupConfirmacaoExcluirEndereco()">Cancelar</button>

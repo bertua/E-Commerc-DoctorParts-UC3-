@@ -15,6 +15,13 @@ const mensagem = document.getElementById('mensagemRetorno');
 document.getElementById('cep').addEventListener('blur', function () {
     const cep = this.value.replace(/\D/g, '');
 
+    // Sempre limpar os campos antes de tentar preencher
+    document.getElementById('rua').value = '';
+    document.getElementById('bairro').value = '';
+    document.getElementById('cidade').value = '';
+    document.getElementById('estado').value = '';
+
+
     if (cep.length === 8) {
         fetch(`https://viacep.com.br/ws/${cep}/json/`)
             .then(response => response.json())
@@ -24,7 +31,7 @@ document.getElementById('cep').addEventListener('blur', function () {
                     document.getElementById('bairro').value = res.bairro;
                     document.getElementById('cidade').value = res.localidade;
                     document.getElementById('estado').value = res.uf;
-                    exibirMensagem(res.message || 'CEP encontrado com sucesso!');
+
                 } else {
                     exibirMensagem('CEP não encontrado.', 'erro');
                 }
@@ -79,6 +86,7 @@ formCadastroEndereco.addEventListener('submit', function (e) {
 
 // Abre o popup e seta o id no input hidden
 function abrirPopupConfirmacaoExcluirEndereco(id_endereco) {
+    console.log("ID recebido no modal:", id_endereco);
     document.getElementById('enderecoIdExcluir').value = id_endereco;
     document.getElementById('popupConfirmExcluirEndereco').style.display = 'flex';
 }
@@ -94,30 +102,44 @@ const formExcluir = document.getElementById('confirmExcluirEndereco');
 formExcluir.addEventListener('submit', function (e) {
     e.preventDefault();
 
+    const id = document.getElementById('enderecoIdExcluir').value;
+    if (!id) {
+        exibirMensagem('ID do endereço não informado.', 'erro');
+        return;
+    }
+    console.log('Excluindo endereço ID:', id);
+
     const formData = new URLSearchParams();
-    formData.append('id_endereco', document.getElementById('enderecoIdExcluir').value);
+    formData.append('id_endereco', id);
 
     fetch(formExcluir.action, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: formData
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: formData.toString()
     })
-    .then(response => response.json())
+    .then(r => r.json())
     .then(res => {
         if (res.status === 'ok') {
-            exibirMensagem(res.message || 'Endereço excluído com sucesso!');
-            fecharPopupConfirmacaoExcluirEndereco();
-            setTimeout(() => location.reload(), 1500);
+        exibirMensagem(res.message || 'Endereço excluído com sucesso!');
+        fecharPopupConfirmacaoExcluirEndereco();
+        setTimeout(() => location.reload(), 1200);
         } else {
-            exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
+        exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
         }
     })
-    .catch(() => {
-        exibirMensagem('Erro ao excluir o endereço', 'erro');
-    });
+    .catch(() => exibirMensagem('Erro ao excluir o endereço', 'erro'));
 });
+
+// Open registration modal
+function abrirPopupEditarDadosEndereco() {
+    document.getElementById("popupEditarDadosEndereco").style.display = "flex";
+}
+
+// Close registration modal
+function fecharPopupEditarDadosEndereco() {
+    document.getElementById("popupEditarDadosEndereco").style.display = "none";
+}
+
 
 function tornarPadrao(id_endereco) {
     const formData = new URLSearchParams();
