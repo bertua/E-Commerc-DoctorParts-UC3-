@@ -72,6 +72,30 @@ header {
 /* User login/register area */
 .user-access {
   color: white;
+  font-weight: bold;
+}
+
+.link-acao.cadastro{
+  color: #FF9900;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.link-acao.cadastro:hover {
+  color: #e08800;
+}
+
+.link-acao.logado{
+  color: #FF9900;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.link-acao.logado:hover {
+  color: #e08800;
 }
 
 /* Shopping cart icon */

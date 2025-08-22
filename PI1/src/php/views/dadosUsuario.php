@@ -53,11 +53,12 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             <!-- User login/register -->
             <div class="user-access">
                 <?php if ($usuario): ?>
-                    <span>Bem-vindo, <a href="dadosUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
-                    <a href="logout.php">Sair</a>
+                    <span>Bem-vindo, <a href="dadosUsuario.php" class="link-acao logado"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
+                    <a href="logout.php" class="link-acao logado">Sair</a>
                 <?php else: ?>
-                    <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
-                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()">Cadastre-se</a>
+                    <a href="javascript:void(0)" onclick="abrirPopupLogin()" class="link-acao cadastro">Entre</a> 
+                    ou 
+                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()" class="link-acao cadastro">Cadastre-se</a>
                 <?php endif; ?>
             </div>
 

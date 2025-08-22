@@ -51,13 +51,13 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
             <!-- User login/register -->
             <div class="user-access">
                 <?php if ($usuario): ?>
-                    <span>Bem-vindo, <a href="areaUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> 
-                    
+                    <span>Bem-vindo, <a href="areaUsuario.php" class="link-acao logado"><?= htmlspecialchars($usuario['nome']) ?></a>!</span>
                     |
-                    <a href="../controllers/logout.php">Sair</a>
+                    <a href="../controllers/logout.php" class="link-acao logado">Sair</a>
                 <?php else: ?>
-                    <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
-                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()">Cadastre-se</a>
+                    <a href="javascript:void(0)" onclick="abrirPopupLogin()" class="link-acao cadastro">Entre</a> 
+                    ou 
+                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()" class="link-acao cadastro">Cadastre-se</a>
                 <?php endif; ?>
             </div>
 

@@ -70,8 +70,30 @@ header {
 /* User login/register area */
 .user-access {
   color: white;
+  font-weight: bold;
 }
 
+.link-acao.cadastro{
+  color: #FF9900;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+.link-acao.cadastro:hover {
+  color: #e08800;
+}
+
+.link-acao.logado{
+  color: #FF9900;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.link-acao.logado:hover {
+  color: #e08800;
+}
 /* Shopping cart icon */
 #divCarrinho img {
   margin-left: 10px;
@@ -98,7 +120,7 @@ header {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   min-height: auto;
 }
 /* Slides container */
