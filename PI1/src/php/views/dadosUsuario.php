@@ -53,12 +53,11 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             <!-- User login/register -->
             <div class="user-access">
                 <?php if ($usuario): ?>
-                    <span>Bem-vindo, <a href="dadosUsuario.php" class="link-acao logado"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
-                    <a href="logout.php" class="link-acao logado">Sair</a>
+                    <span>Bem-vindo, <a href="dadosUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> | 
+                    <a href="logout.php">Sair</a>
                 <?php else: ?>
-                    <a href="javascript:void(0)" onclick="abrirPopupLogin()" class="link-acao cadastro">Entre</a> 
-                    ou 
-                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()" class="link-acao cadastro">Cadastre-se</a>
+                    <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
+                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()">Cadastre-se</a>
                 <?php endif; ?>
             </div>
 
@@ -68,6 +67,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             </div>
         </nav>
     </header>
+<<<<<<< HEAD
     <main>
         <div class="container">
             <div class="blocos">
@@ -78,6 +78,59 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
                         <p><strong>Email do Usuário:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
                         <p><strong>Telefone:</strong> <?= htmlspecialchars($usuario['contato']) ?></p>
                         <p><strong>CPF:</strong> <?= htmlspecialchars($usuario['cpf']) ?></p>
+=======
+
+    <div class="container">
+        <div class="blocos">
+            <div class="dados-usuario bloco">
+                <h1>Seus Dados</h1>
+                <div class="usuario">
+                    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nome']) ?></p>    
+                    <p><strong>Email do Usuário:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
+                    <p><strong>Telefone:</strong> <?= htmlspecialchars($usuario['contato']) ?></p>
+                    <p><strong>CPF:</strong> <?= htmlspecialchars($usuario['cpf']) ?></p>
+                </div>
+                <div class="actions">
+                    <a href="editarDados.php" class="btn">Editar Dados</a>
+                    <a href="alterarSenha.php" class="btn">Alterar</a> 
+                </div>
+            </div>
+
+            <div class="dados-endereco bloco">
+                <h1>Endereços</h1>
+                <?php if (!empty($enderecos)): ?>
+                    <?php foreach ($enderecos as $endereco): ?>
+            <div class="endereco">
+                <div class="card-endereco <?= $endereco['padrao'] ? 'padrao' : '' ?>">
+                    <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong> <?= $endereco['padrao'] ? '(Padrão)' : '' ?></p>
+                    
+                    <p><strong><?= htmlspecialchars($usuario['nome']) ?></strong></p>
+                    <p><?= htmlspecialchars($endereco['rua']) ?></p>
+                    <p>Número: <?= htmlspecialchars($endereco['numero']) ?><?= $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
+                    <p>CEP <?= htmlspecialchars($endereco['cep']) ?> – <?= htmlspecialchars($endereco['cidade']) ?>, <?= htmlspecialchars($endereco['estado']) ?></p>
+
+
+<!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
+                    <div class="acoes-endereco"> 
+                        <a href="javascript:void(0)" onclick="excluirEndereco(<?= $endereco['id_endereco'] ?>)" class="excluirEndereco.php">EXCLUIR</a>
+                        <a href="editarEndereco.php?id_endereco=<?= $endereco['id_endereco'] ?>" class="link-acao editar">EDITAR</a>
+                        <?php if (!$endereco['padrao']): ?>
+                            <a href="tornarPadrao.php?id=<?= $endereco['id_endereco'] ?>" class="link-acao padrao">DEIXAR PADRÃO</a>
+                        <?php else: ?>
+                            <span class="link-acao padrao">PADRÃO</span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+
+                    <div class="actions">
+                        <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
+                    </div>
+                <?php else: ?>
+                    <div class="no-address">
+                        <p><strong>Nenhum endereço cadastrado.</strong></p>
+>>>>>>> 492558dbcd1065de60d492c515b4f02a4a9d0b81
                     </div>
                     <div class="actions">
                         <a href="editarDados.php" class="btn">Editar Dados</a>
@@ -186,6 +239,7 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             </form>
         </div>
     </div>
+<<<<<<< HEAD
     <!-- Edit user data modal PopUp-->
     <div id="popupEditarDadosUsuario" class="modal">
         <div class="modal-conteudo">
@@ -262,6 +316,8 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             </form>
         </div>
     </div>
+=======
+>>>>>>> 492558dbcd1065de60d492c515b4f02a4a9d0b81
 
     <div id="mensagemRetorno" class="mensagem-sucesso" ></div>
     <script src="../../js/scriptDadosUsuario.js" defer></script>
