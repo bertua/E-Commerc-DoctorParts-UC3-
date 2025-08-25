@@ -72,30 +72,6 @@ header {
 /* User login/register area */
 .user-access {
   color: white;
-  font-weight: bold;
-}
-
-.link-acao.cadastro{
-  color: #FF9900;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-.link-acao.cadastro:hover {
-  color: #e08800;
-}
-
-.link-acao.logado{
-  color: #FF9900;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-
-.link-acao.logado:hover {
-  color: #e08800;
 }
 
 /* Shopping cart icon */
@@ -150,7 +126,6 @@ header {
   transition: background-color 0.3s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   margin-top: 15px;
-  margin-bottom: 15px;
 }
 
 .actions .btn:hover {
@@ -235,8 +210,6 @@ header {
   justify-content: flex-end;
   margin-top: 15px;
   gap: 15px;
-  text-decoration: none;
-  color: black;
 }
 
 .link-acao {
@@ -247,12 +220,12 @@ header {
   cursor: pointer;
 }
 
-.link-acao.excluirEndereco {
-  color: #eb0101;
+.link-acao.excluir {
+  color: #999;
 }
 
 .link-acao.editar {
-  color: #0039b4;
+  color: #999;
 }
 
 .link-acao.padrao {
@@ -309,13 +282,6 @@ header {
   text-transform: uppercase;
 }
 
-.modal-conteudo h3 {
-  font-size: 24px;
-  color: #FFD700;
-  margin-bottom: 25px;
-  text-transform: uppercase;
-}
-
 /* Input fields in modal */
 .input-modal {
   display: flex;
@@ -350,7 +316,7 @@ header {
 }
 
 /* Submit button in modal */
-.modal-conteudo button {
+.modal-conteudo button[type="submit"] {
   width: 100%;
   background-color: #FF9900;
   color: #000;
@@ -361,10 +327,9 @@ header {
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s;
-  margin-top: 10px;
 }
 
-.modal-conteudo button:hover {
+.modal-conteudo button[type="submit"]:hover {
   background-color: #e08800;
 }
 
