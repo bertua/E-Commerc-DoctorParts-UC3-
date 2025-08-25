@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 /* Corpo */
 body {
   font-family: Arial, sans-serif;
@@ -101,6 +105,10 @@ header {
 /* Shopping cart icon */
 #divCarrinho img {
   margin-left: 10px;
+}
+
+main{
+  flex: 1;
 }
 
 /* ======== ESTILOS DA PÁGINA DE DADOS DO USUÁRIO ======== */

@@ -257,8 +257,9 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                     <button class="botao-carrosel direita" onclick="avancar()">→</button>
                 </div>
             </div>
+        </div>
 
-            <div class="carrossel">
+        <div class="carrossel">
             <h1>Pneus</h1>
             <div class="carrossel-wrapper" style="display: flex; align-items: center;">
                 <!-- Left navigation button -->
@@ -350,7 +351,8 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                     <button class="botao-carrosel direita" onclick="avancar()">→</button>
                 </div>
             </div>
-
+        </div>
+        
             <div class="carrossel">
                 <h1>Roupas</h1>
                 <div class="carrossel-wrapper" style="display: flex; align-items: center;">

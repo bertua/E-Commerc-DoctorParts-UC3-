@@ -68,65 +68,66 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
             </div>
         </nav>
     </header>
-
-    <div class="container">
-        <div class="blocos">
-            <div class="dados-usuario bloco">
-                <h1>Seus Dados</h1>
-                <div class="usuario">
-                    <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nome']) ?></p>    
-                    <p><strong>Email do Usuário:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
-                    <p><strong>Telefone:</strong> <?= htmlspecialchars($usuario['contato']) ?></p>
-                    <p><strong>CPF:</strong> <?= htmlspecialchars($usuario['cpf']) ?></p>
-                </div>
-                <div class="actions">
-                    <a href="editarDados.php" class="btn">Editar Dados</a>
-                    <a href="alterarSenha.php" class="btn">Alterar Senha</a> 
-                </div>
-            </div>
-
-            <div class="dados-endereco bloco">
-                <h1>Endereços</h1>
-                <?php if (!empty($enderecos)): ?>
-                <div class="actions">
-                    <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Novo Endereço</a>
-                </div>
-                <?php foreach ($enderecos as $endereco): ?>
-                    <div class="endereco">
-                        <div class="card-endereco <?php echo $endereco['padrao'] ? 'padrao' : '' ?>">
-                            <p> <strong><?php echo $endereco['padrao'] ? '(Padrão)' : '' ?></strong></p>
-                            <p><?php echo htmlspecialchars($endereco['rua']) ?></p>
-                            <p>Número: <?php echo htmlspecialchars($endereco['numero']) ?><?php echo $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
-                            <p>CEP <?php echo htmlspecialchars($endereco['cep']) ?> – <?php echo htmlspecialchars($endereco['cidade']) ?>, <?php echo htmlspecialchars($endereco['estado']) ?></p>
-
-
-                            <!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
-                            <div class="acoes-endereco">
-                                <?php if (count($enderecos) > 1): ?>
-                                    <a href="javascript:void(0)" onclick="abrirPopupConfirmacaoExcluirEndereco(<?php echo $endereco['id_endereco'] ?>)" class="link-acao excluirEndereco">EXCLUIR</a>
-                                <?php endif; ?>
-                                <a href="javascript:void(0)" onclick="abrirPopupEditarDadosEndereco(<?php echo $endereco['id_endereco'] ?>)" class="link-acao editar">EDITAR</a>
-                                <?php if (!$endereco['padrao']): ?>
-                                    <a href="javascript:void(0)" onclick="tornarPadrao(<?php echo $endereco['id_endereco'] ?>)" class="link-acao padrao">DEIXAR PADRÃO</a>
-                                <?php else: ?>
-                                    <span class="link-acao padrao">PADRÃO</span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="no-address">
-                        <p><strong>Nenhum endereço cadastrado.</strong></p>
+    <main>
+        <div class="container">
+            <div class="blocos">
+                <div class="dados-usuario bloco">
+                    <h1>Seus Dados</h1>
+                    <div class="usuario">
+                        <p><strong>Nome:</strong> <?= htmlspecialchars($usuario['nome']) ?></p>    
+                        <p><strong>Email do Usuário:</strong> <?= htmlspecialchars($usuario['email']) ?></p>
+                        <p><strong>Telefone:</strong> <?= htmlspecialchars($usuario['contato']) ?></p>
+                        <p><strong>CPF:</strong> <?= htmlspecialchars($usuario['cpf']) ?></p>
                     </div>
                     <div class="actions">
-                        <a  href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
+                        <a href="editarDados.php" class="btn">Editar Dados</a>
+                        <a href="alterarSenha.php" class="btn">Alterar Senha</a> 
                     </div>
-                <?php endif; ?>
+                </div>
+
+                <div class="dados-endereco bloco">
+                    <h1>Endereços</h1>
+                    <?php if (!empty($enderecos)): ?>
+                    <div class="actions">
+                        <a href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Novo Endereço</a>
+                    </div>
+                    <?php foreach ($enderecos as $endereco): ?>
+                        <div class="endereco">
+                            <div class="card-endereco <?php echo $endereco['padrao'] ? 'padrao' : '' ?>">
+                                <p> <strong><?php echo $endereco['padrao'] ? '(Padrão)' : '' ?></strong></p>
+                                <p><?php echo htmlspecialchars($endereco['rua']) ?></p>
+                                <p>Número: <?php echo htmlspecialchars($endereco['numero']) ?><?php echo $endereco['complemento'] ? ', ' . htmlspecialchars($endereco['complemento']) : '' ?></p>
+                                <p>CEP <?php echo htmlspecialchars($endereco['cep']) ?> – <?php echo htmlspecialchars($endereco['cidade']) ?>, <?php echo htmlspecialchars($endereco['estado']) ?></p>
+
+
+                                <!-- TERMINAR OS BOTÕES E SUAS FUNÇÕES -->
+                                <div class="acoes-endereco">
+                                    <?php if (count($enderecos) > 1): ?>
+                                        <a href="javascript:void(0)" onclick="abrirPopupConfirmacaoExcluirEndereco(<?php echo $endereco['id_endereco'] ?>)" class="link-acao excluirEndereco">EXCLUIR</a>
+                                    <?php endif; ?>
+                                    <a href="javascript:void(0)" onclick='abrirPopupEditarDadosEndereco(<?php echo json_encode($endereco, JSON_UNESCAPED_UNICODE); ?>)' class="link-acao editar">EDITAR</a>
+
+                                    <?php if (!$endereco['padrao']): ?>
+                                        <a href="javascript:void(0)" onclick="tornarPadrao(<?php echo $endereco['id_endereco'] ?>)" class="link-acao padrao">DEIXAR PADRÃO</a>
+                                    <?php else: ?>
+                                        <span class="link-acao padrao">PADRÃO</span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="no-address">
+                            <p><strong>Nenhum endereço cadastrado.</strong></p>
+                        </div>
+                        <div class="actions">
+                            <a  href="javascript:void(0)" onclick="abrirPopupCadastroEndereco()" class="btn">Cadastrar Endereço</a>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
-
+    </main>
 
     <!-- Website footer -->
     <footer>
@@ -214,37 +215,38 @@ $enderecos = $e->buscarEnderecosPorUsuario($usuarioLogadoId);
     <!-- Edit user data modal PopUp-->
     <div id="popupEditarDadosEndereco" class="modal">
         <div class="modal-conteudo">
-            <!-- Close button -->
             <span class="fechar" onclick="fecharPopupEditarDadosEndereco()">&times;</span>
             <h2>Editar Dados do Endereço</h2>
-            <!-- Registration form -->
-            <form id="formEditarDadosEndereco" action="../controllers/editarDadosUsuario.php" method="POST">
-                <input type="hidden" name="id_endereco" value="<?php echo $endereco['id_endereco']; ?>">
+            <form id="formEditarDadosEndereco" action="../controllers/editarEndereco.php" method="POST">
+                <input type="hidden" name="id_endereco" id="editar_id_endereco">
+                <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario']; ?>">
+                
                 <div class="input-modal">   
-                    <input type="text" id="cep" name="cep" value="<?php echo $endereco['cep']; ?>" required>
+                    <input type="text" id="editar_cep" name="cep" required placeholder="Insira um CEP">
                 </div>
                 <div class="input-modal">
-                    <input type="email" id="numero" name="numero" value="<?php echo $endereco['numero']; ?>" required>
+                    <input type="text" id="editar_numero" name="numero" required placeholder="Número">
                 </div>
                 <div class="input-modal">
-                    <input type="text" id="rua" name="rua" value="<?php echo $endereco['rua']; ?>" required>
+                    <input type="text" id="editar_rua" name="rua" required placeholder="Rua">
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="bairro" name="bairro" value="<?php echo $endereco['bairro']; ?>" required>
+                    <input type="text" id="editar_bairro" name="bairro" required placeholder="Bairro">
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="cidade" name="cidade" value="<?php echo $endereco['cidade']; ?>" required>
+                    <input type="text" id="editar_cidade" name="cidade" required placeholder="Cidade">
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="estado" name="estado" value="<?php echo $endereco['estado']; ?>" required>
+                    <input type="text" id="editar_estado" name="estado" required placeholder="Estado">
                 </div>
                 <div class="input-modal">
-                    <input type="tel" id="complemento" name="conplemento" value="<?php echo $endereco['complemento']; ?>" required>
+                    <input type="text" id="editar_complemento" name="complemento" placeholder="Complemento (opcional)">
                 </div>                
-                <button type="submit" >Salvar</button>
+                <button type="submit">Salvar</button>
             </form>
         </div>
     </div>
+
 
 
     <div id="popupConfirmExcluirEndereco" class="modal">

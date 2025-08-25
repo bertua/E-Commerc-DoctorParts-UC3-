@@ -44,6 +44,40 @@ document.getElementById('cep').addEventListener('blur', function () {
     }
 });
 
+// Função genérica para aplicar API ViaCEP
+function aplicarBuscaCEP(campoCepId, campoRuaId, campoBairroId, campoCidadeId, campoEstadoId) {
+    document.getElementById(campoCepId).addEventListener('blur', function () {
+        const cep = this.value.replace(/\D/g, '');
+
+        // Limpa os campos antes de buscar
+        document.getElementById(campoRuaId).value = '';
+        document.getElementById(campoBairroId).value = '';
+        document.getElementById(campoCidadeId).value = '';
+        document.getElementById(campoEstadoId).value = '';
+
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(res => {
+                    if (!res.erro) {
+                        document.getElementById(campoRuaId).value = res.logradouro;
+                        document.getElementById(campoBairroId).value = res.bairro;
+                        document.getElementById(campoCidadeId).value = res.localidade;
+                        document.getElementById(campoEstadoId).value = res.uf;
+                    } else {
+                        exibirMensagem('CEP não encontrado.', 'erro');
+                    }
+                })
+                .catch(() => {
+                    exibirMensagem('Erro ao buscar o CEP.', 'erro');
+                });
+        }
+    });
+}
+
+aplicarBuscaCEP('cep', 'rua', 'bairro', 'cidade', 'estado'); // cadastro
+aplicarBuscaCEP('editar_cep', 'editar_rua', 'editar_bairro', 'editar_cidade', 'editar_estado'); // edição
+
 formCadastroEndereco.addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -130,14 +164,65 @@ formExcluir.addEventListener('submit', function (e) {
     .catch(() => exibirMensagem('Erro ao excluir o endereço', 'erro'));
 });
 
-// Open registration modal
-function abrirPopupEditarDadosEndereco() {
-    document.getElementById("popupEditarDadosEndereco").style.display = "flex";
+function abrirPopupEditarDadosEndereco(endereco) {
+    document.getElementById("editar_id_endereco").value = endereco.id_endereco;
+    document.getElementById("editar_cep").value = endereco.cep;
+    document.getElementById("editar_numero").value = endereco.numero;
+    document.getElementById("editar_rua").value = endereco.rua;
+    document.getElementById("editar_bairro").value = endereco.bairro;
+    document.getElementById("editar_cidade").value = endereco.cidade;
+    document.getElementById("editar_estado").value = endereco.estado;
+    document.getElementById("editar_complemento").value = endereco.complemento;
+
+    document.getElementById("popupEditarDadosEndereco").style.display = "block";
 }
 
-// Close registration modal
+// Fechar modal
 function fecharPopupEditarDadosEndereco() {
     document.getElementById("popupEditarDadosEndereco").style.display = "none";
+}
+
+
+const formEditarEndereco = document.getElementById('formEditarDadosEndereco');
+
+if (formEditarEndereco) {
+    formEditarEndereco.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new URLSearchParams();
+        formData.append('id_endereco', formEditarEndereco.id_endereco.value);
+        formData.append('id_usuario', formEditarEndereco.id_usuario.value);
+        formData.append('cep', formEditarEndereco.cep.value);
+        formData.append('numero', formEditarEndereco.numero.value);
+        formData.append('rua', formEditarEndereco.rua.value);
+        formData.append('bairro', formEditarEndereco.bairro.value);
+        formData.append('cidade', formEditarEndereco.cidade.value);
+        formData.append('estado', formEditarEndereco.estado.value);
+        formData.append('complemento', formEditarEndereco.complemento.value);
+
+        fetch(formEditarEndereco.action, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData.toString()
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.status === 'ok') {
+                exibirMensagem(res.message || 'Endereço atualizado com sucesso!');
+                // Fecha o modal
+                fecharPopupEditarDadosEndereco();
+                // Recarrega a página para refletir a alteração
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            } else {
+                exibirMensagem(res.message || 'Erro ao atualizar endereço.', 'erro');
+            }
+        })
+        .catch(() => {
+            exibirMensagem('Erro ao enviar os dados.', 'erro');
+        });
+    });
 }
 
 

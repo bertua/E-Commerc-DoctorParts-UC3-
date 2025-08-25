@@ -114,13 +114,12 @@ header {
   width: 100%;
   max-width: 1300px;
   overflow: hidden;
-  margin: 0 auto;
-  margin: 20px auto; /* espaço entre carrosséis */
+  /* margin: 0 auto; */
   /* pode deixar display flex column para layout interno */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* margin-top: 20px; */
+  margin-top: 20px;
   min-height: auto;
 }
 /* Slides container */
