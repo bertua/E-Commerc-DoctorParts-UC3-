@@ -2,17 +2,17 @@
 session_start();
 include '../classes/endereco.class.php';
 
-if (!isset($_SESSION['usuario_id']) || !isset($_POST['id_endereco'])) {
-    echo json_encode(['status' => 'erro', 'message' => 'Requisição inválida.']);
+if (!isset($_SESSION['usuario_id']) || !isset($_GET['id'])) {
+    header('Location: ../views/dadosUsuario.php');
     exit;
 }
 
 $id_usuario = $_SESSION['usuario_id'];
-$id_endereco = $_POST['id_endereco'];
+$id_endereco = $_GET['id'];
 
 $endereco = new Endereco();
 if ($endereco->tornarPadrao($id_usuario, $id_endereco)) {
-    echo json_encode(['status' => 'ok', 'message' => 'Endereço definido como padrão.']);
+    header('Location: ../views/dadosUsuario.php'); // Atualiza lista
 } else {
-    echo json_encode(['status' => 'erro', 'message' => 'Erro ao atualizar endereço padrão.']);
+    echo "Erro ao atualizar o endereço padrão.";
 }

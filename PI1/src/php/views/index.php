@@ -2,13 +2,16 @@
 session_start();
 include '../classes/usuario.class.php';
 include '../classes/produto.class.php';
-
+include_once '../classes/carrinho.class.php';
 
 $usuarioLogadoId = $_SESSION['usuario_id'] ?? null;
 
 
 $a = new Usuario();
 $usuario = $a->selectUsuarioId($usuarioLogadoId);
+
+$carrinho = new Carrinho();
+$quantidadeItens = $usuario ? $carrinho->contarItens($usuarioLogadoId) : 0;
 
 
 ?>
@@ -51,20 +54,25 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
             <!-- User login/register -->
             <div class="user-access">
                 <?php if ($usuario): ?>
-                    <span>Bem-vindo, <a href="areaUsuario.php" class="link-acao logado"><?= htmlspecialchars($usuario['nome']) ?></a>!</span>
+                    <span>Bem-vindo, <a href="areaUsuario.php"><?= htmlspecialchars($usuario['nome']) ?></a>!</span> 
+                    
                     |
-                    <a href="../controllers/logout.php" class="link-acao logado">Sair</a>
+                    <a href="../controllers/logout.php">Sair</a>
                 <?php else: ?>
-                    <a href="javascript:void(0)" onclick="abrirPopupLogin()" class="link-acao cadastro">Entre</a> 
-                    ou 
-                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()" class="link-acao cadastro">Cadastre-se</a>
+                    <a href="javascript:void(0)" onclick="abrirPopupLogin()">Entre</a> ou 
+                    <a href="javascript:void(0)" onclick="abrirPopupCadastro()">Cadastre-se</a>
                 <?php endif; ?>
             </div>
 
             <!-- Shopping cart icon -->
-            <div id="divCarrinho">
-                <img src="../../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
-            </div>
+                <div id="divCarrinho" style="position: relative;">
+                    <a href="carrinho.php">
+                        <img src="../../../assets/images/carrinho.jpg" width="30px" height="30px" alt="Cart" />
+                        <?php if ($quantidadeItens > 0): ?>
+                            <span class="badge-carrinho"><?= $quantidadeItens ?></span>
+                        <?php endif; ?>
+                    </a>
+                </div>
         </nav>
     </header>
 
@@ -91,7 +99,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -103,7 +115,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -115,7 +131,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -127,7 +147,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -139,7 +163,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -151,7 +179,11 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                                     <div class="descricao">
                                         <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
                                     </div>
-                                    <button class="botao-carrinho">Adicionar ao carrinho</button>
+                                    <form method="POST" action="../controllers/adicionarAoCarrinho.php">
+                                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                                    </form>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -257,6 +289,7 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                     <button class="botao-carrosel direita" onclick="avancar()">→</button>
                 </div>
             </div>
+<<<<<<< HEAD
         </div>
 
         <div class="carrossel">
@@ -446,6 +479,8 @@ $usuario = $a->selectUsuarioId($usuarioLogadoId);
                     </div>
                 </div>
             </div>
+=======
+>>>>>>> 492558dbcd1065de60d492c515b4f02a4a9d0b81
         </div>
     </div>
     <!-- Website footer -->

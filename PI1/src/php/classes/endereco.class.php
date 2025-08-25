@@ -158,85 +158,18 @@ include_once 'conexao.class.php';
                 return [];
             }
         }
-        public function deletarEndereco($id_endereco, $id_usuario) {
+        public function deletarEndereco($id_endereco){
             $database = new Conexao();
             $db = $database->getConnection();
-
-            try {
-                // Verifica se o endereço é padrão
-                $sqlCheck = "SELECT padrao FROM enderecos WHERE id_endereco = :id_endereco AND id_usuario = :id_usuario";
-                $stmtCheck = $db->prepare($sqlCheck);
-                $stmtCheck->bindParam(':id_endereco', $id_endereco, PDO::PARAM_INT);
-                $stmtCheck->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-                $stmtCheck->execute();
-                $endereco = $stmtCheck->fetch(PDO::FETCH_ASSOC);
-
-                if (!$endereco) {
-                    return 0; // não existe ou não pertence ao usuário
-                }
-
-                // Exclui o endereço
-                $sqlDel = "DELETE FROM enderecos WHERE id_endereco = :id_endereco AND id_usuario = :id_usuario";
-                $stmtDel = $db->prepare($sqlDel);
-                $stmtDel->bindParam(':id_endereco', $id_endereco, PDO::PARAM_INT);
-                $stmtDel->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-                $stmtDel->execute();
-
-                // Se era padrão, define outro como padrão
-                if ($endereco['padrao'] == 1) {
-                    $sqlUpdate = "UPDATE enderecos 
-                                SET padrao = 1 
-                                WHERE id_usuario = :id_usuario 
-                                ORDER BY id_endereco ASC 
-                                LIMIT 1";
-                    $stmtUpdate = $db->prepare($sqlUpdate);
-                    $stmtUpdate->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-                    $stmtUpdate->execute();
-                }
-
-                return $stmtDel->rowCount();
-
-            } catch (PDOException $e) {
-                error_log('Erro ao deletar endereço: ' . $e->getMessage());
-                return 0;
-            }
-        }
-        public function editarEndereco() {
-            $conexao = new Conexao();
-            $db = $conexao->getConnection();
-
-            $sql = "UPDATE enderecos 
-                    SET cep = :cep,
-                        numero = :numero,
-                        rua = :rua,
-                        bairro = :bairro,
-                        cidade = :cidade,
-                        estado = :estado,
-                        complemento = :complemento
-                    WHERE id_endereco = :id_endereco AND id_usuario = :id_usuario";
-
-            try {
+            $sql = "DELETE FROM enderecos WHERE id_endereco=:id_endereco";
+            try{
                 $stmt = $db->prepare($sql);
-                $stmt->bindParam(':cep', $this->cep);
-                $stmt->bindParam(':numero', $this->numero);
-                $stmt->bindParam(':rua', $this->rua);
-                $stmt->bindParam(':bairro', $this->bairro);
-                $stmt->bindParam(':cidade', $this->cidade);
-                $stmt->bindParam(':estado', $this->estado);
-                $stmt->bindParam(':complemento', $this->complemento);
-                $stmt->bindParam(':id_endereco', $this->id_endereco, PDO::PARAM_INT);
-                $stmt->bindParam(':id_usuario', $this->id_usuario, PDO::PARAM_INT);
-
-                if ($stmt->execute()) {
-                    return true;
-                }
-                return false;
-
-            } catch (PDOException $e) {
-                echo 'Erro ao editar endereço: ' . $e->getMessage();
+                $stmt->bindParam(':id_endereco',$id_endereco, PDO::PARAM_INT);
+                $stmt->execute();
+                return true;
+            }catch(PDOException $e){
+                echo 'Erro ao deletar o endereço: ' . $e->getMessage();
                 return false;
             }
         }
-
-
     }
