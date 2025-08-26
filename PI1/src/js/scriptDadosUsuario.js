@@ -137,7 +137,6 @@ function excluirEndereco(id_endereco) {
             exibirMensagem('Erro ao excluir o endereço', 'erro');
         });
     }
-<<<<<<< HEAD
     console.log('Excluindo endereço ID:', id);
 
     const formData = new URLSearchParams();
@@ -158,8 +157,8 @@ function excluirEndereco(id_endereco) {
         exibirMensagem(res.message || 'Erro ao excluir o endereço', 'erro');
         }
     })
-    .catch(() => exibirMensagem('Erro ao excluir o endereço', 'erro'));
-});
+.catch(() => exibirMensagem('Erro ao excluir o endereço', 'erro'));
+} // <-- Adicionado para fechar a função excluirEndereco
 
 function abrirPopupEditarDadosEndereco(endereco) {
     document.getElementById("editar_id_endereco").value = endereco.id_endereco;
@@ -249,10 +248,6 @@ function tornarPadrao(id_endereco) {
 }
 
 
-=======
-}
-
->>>>>>> 492558dbcd1065de60d492c515b4f02a4a9d0b81
 function exibirMensagem(texto, tipo = 'success') {
     mensagem.innerHTML = texto;
     mensagem.style.display = 'block';
