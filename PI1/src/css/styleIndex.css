@@ -89,17 +89,25 @@ header {
 .carrossel {
   position: relative;
   width: 1300px;
-  width: 100%;
   max-width: 1300px;
   overflow: hidden;
-  /* margin: 0 auto; */
-  /* pode deixar display flex column para layout interno */
+  /* Layout flex column para carrossel normal */
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  margin-top: 20px;
   min-height: auto;
+  margin-top: 20px;
 }
+
+/* Ajuste para carrossel e resultados da busca:
+   quando for resultado da busca, permite múltiplas linhas */
+.carrossel.resultado-busca {
+  flex-wrap: wrap; /* permite quebrar linhas */
+  flex-direction: row; /* linha horizontal com wrap */
+  justify-content: center;
+  gap: 20px;
+  overflow: visible;
+}
+
 /* Slides container */
 .slides {
   display: flex;
@@ -115,18 +123,39 @@ header {
   margin-right: 5px;
   border-radius: 8px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+/* Ajuste da largura para resultado da busca */
+.carrossel.resultado-busca .slide {
+  width: 200px; /* largura fixa menor */
+  margin-right: 0;
+  margin-bottom: 20px;
+}
+
+.slide:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
 }
 
 .slide img {
   width: 100%;
   height: 200px;
   object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .descricao {
   margin: 10px 0;
   font-size: 16px;
   color: #333;
+  text-align: center;
+  min-height: 40px; /* altura fixa para alinhamento */
 }
 
 /* Carousel navigation buttons */
@@ -156,6 +185,7 @@ header {
   font-size: 14px;
   border-radius: 8px;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 .botao-carrinho:hover {
@@ -267,6 +297,7 @@ button {
 .modal-conteudo button[type="submit"]:hover {
   background-color: #e08800;
 }
+
 /* Footer section */
 footer {
   background-color: #333;
@@ -305,7 +336,8 @@ footer {
 .footer-descricao h2 {
   margin-bottom: 10px;
 }
-/*  */
+
+/* Success message */
 .mensagem-sucesso {
   display: none;
   position: fixed;
@@ -323,7 +355,8 @@ footer {
   text-align: center;
   cursor: pointer;
 }
-/*  */
+
+/* Error message */
 .mensagem-erro {
   display: none;
   position: fixed;
@@ -343,12 +376,12 @@ footer {
 }
 
 .badge-carrinho {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background-color: red;
-    color: white;
-    font-size: 12px;
-    padding: 2px 6px;
-    border-radius: 50%;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
