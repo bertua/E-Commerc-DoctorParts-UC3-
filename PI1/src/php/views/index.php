@@ -89,19 +89,20 @@ $quantidadeItens = $usuario ? $carrinho->contarItens($usuarioLogadoId) : 0;
 
     <?php if (!empty($termoBusca)): ?>
     <h2 style="text-align:center;">Resultados para: "<?= htmlspecialchars($termoBusca) ?>"</h2>
-    <div class="carrossel resultado-busca" style="flex-wrap: wrap; justify-content: center;">
+    <div class="resultado-lista">
         <?php if (count($produtosBuscados) > 0): ?>
             <?php foreach ($produtosBuscados as $produto): ?>
-                <div class="slide">
+                <div class="item-busca">
                     <img src="<?= htmlspecialchars($produto['image_url']) ?>" alt="<?= htmlspecialchars($produto['nome']) ?>">
-                    <div class="descricao">
-                        <?= htmlspecialchars($produto['nome']) ?> - R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
+                    <div class="info">
+                        <h3><?= htmlspecialchars($produto['nome']) ?></h3>
+                        <p>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></p>
+                        <form method="POST" action="controllers/adicionarAoCarrinho.php">
+                            <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
+                            <input type="hidden" name="quantidade" value="1">
+                            <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
+                        </form>
                     </div>
-                    <form method="POST" action="controllers/adicionarAoCarrinho.php">
-                        <input type="hidden" name="id_produto" value="<?= $produto['id_produto'] ?>">
-                        <input type="hidden" name="quantidade" value="1">
-                        <button type="submit" class="botao-carrinho">Adicionar ao carrinho</button>
-                    </form>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
