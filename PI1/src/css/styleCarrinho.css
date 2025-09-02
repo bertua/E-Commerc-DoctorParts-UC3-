@@ -105,6 +105,7 @@ header {
 /* MAIN CONTAINER */
 main {
   flex: 1; /* Ocupa o espaço restante, empurra o footer para baixo se necessário */
+  padding: 20px;
 }
 
 /* Estilo do container do carrinho */
